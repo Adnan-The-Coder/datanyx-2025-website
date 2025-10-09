@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, CSSProperties } from "react"
 
 const links = [
   { href: "#home", label: "HOME" },
@@ -12,7 +12,11 @@ const links = [
   { href: "#faqs", label: "FAQS" },
 ]
 
-export function Navbar() {
+interface NavbarProps {
+  style?: CSSProperties;
+}
+
+export function Navbar({ style }: NavbarProps = {}) {
   const [scrolled, setScrolled] = useState(false)
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
@@ -22,7 +26,7 @@ export function Navbar() {
   }, [])
 
   return (
-    <header className="fixed inset-x-0 top-4 z-50 flex justify-center">
+    <header className="fixed inset-x-0 top-4 z-50 flex justify-center" style={style}>
       <nav
         role="navigation"
         aria-label="Primary"

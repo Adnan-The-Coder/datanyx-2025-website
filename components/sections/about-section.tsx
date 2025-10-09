@@ -1,33 +1,61 @@
 export function AboutSection() {
   const stats = [
-    { label: "Participants", value: "500+" },
-    { label: "Hours", value: "48" },
-    { label: "Projects", value: "200+" },
-    { label: "Prizes", value: "$50k+" },
+    { label: "Participants", value: "300+" },
+    { label: "Hours", value: "24" },
+    { label: "Projects", value: "100+" },
+    { label: "Prize pool", value: "₹1,00,000+" },
   ]
 
   return (
-    <section id="about" aria-labelledby="about-title" className="scroll-mt-24 py-16 md:py-24">
-      <div className="container mx-auto px-4">
-        <h2 id="about-title" className="text-3xl md:text-4xl font-bold text-balance mb-4 text-foreground">
-          About the Event
-        </h2>
-        <p className="text-muted-foreground max-w-2xl">
-          A weekend of rapid prototyping to build real, impactful products. Meet collaborators, ship polished projects,
-          and compete for top prizes.
-        </p>
-
-        <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-          {stats.map((s) => (
-            <div
-              key={s.label}
-              className="rounded-xl border border-border/60 bg-background/60 p-4 text-center backdrop-blur"
-            >
-              <div className="text-2xl font-bold text-foreground">{s.value}</div>
-              <div className="text-xs text-muted-foreground">{s.label}</div>
-            </div>
-          ))}
+    <section id="about" aria-labelledby="about-title" className="scroll-mt-24 py-16 md:py-24 relative">
+      {/* Space-themed background effect */}
+      <div className="absolute inset-0 overflow-hidden opacity-20 pointer-events-none">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-500/20 via-transparent to-transparent"></div>
+        <div className="absolute top-10 right-1/4 w-1 h-1 rounded-full bg-purple-300 animate-ping"></div>
+        <div className="absolute top-60 left-1/3 w-1 h-1 rounded-full bg-blue-300 animate-ping" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-40 right-1/3 w-1 h-1 rounded-full bg-cyan-300 animate-ping" style={{ animationDelay: '2s' }}></div>
+      </div>
+      
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="flex items-center mb-8">
+          <div className="h-1 w-8 bg-purple-400 mr-4 rounded-full"></div>
+          <h2 id="about-title" className="text-3xl md:text-4xl font-bold text-balance text-foreground bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+            About the Event
+          </h2>
+          <div className="h-1 flex-grow bg-gradient-to-r from-purple-400 to-transparent ml-4 rounded-full"></div>
         </div>
+        
+        <div className="backdrop-blur-sm bg-black/30 rounded-xl p-6 border border-purple-500/20 shadow-lg shadow-purple-500/5">
+          <p className="text-gray-300 max-w-7xl text-lg">
+          India's largest datathon is back. Building on the legacy of South India's first datathon,
+          DataNyx 2.0 returns bigger and more powerful than ever. This is your chance to push boundaries, solve real-world challenges, and experience the thrill of a lifetime alongside India's brightest data minds.
+
+
+          </p>
+
+          <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+            {stats.map((s, i) => (
+              <div
+                key={s.label}
+                className="rounded-xl border border-white/10 bg-black/40 p-4 text-center backdrop-blur-sm hover:border-purple-500/30 transition-colors"
+                style={{ 
+                  boxShadow: "0 0 15px rgba(168, 85, 247, 0.1)",
+                  animation: `pulse 3s infinite ${i * 0.5}s`
+                }}
+              >
+                <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">{s.value}</div>
+                <div className="text-xs text-gray-400">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        <style jsx>{`
+          @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+          }
+        `}</style>
       </div>
     </section>
   )
