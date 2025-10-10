@@ -2,10 +2,10 @@
 import { CometCard } from "@/components/ui/comet-card"
 
 const DOMAINS = [
-  { key: "fintech", title: "FinTech", image: "/fintech-illustration.jpg", badge: "Finance" },
-  { key: "medtech", title: "MedTech", image: "/MEDTECH.png", badge: "Healthcare" },
-  { key: "agrotech", title: "AgroTech", image: "/agriculture-technology-illustration.jpg", badge: "Agriculture" },
-  { key: "edtech", title: "EdTech", image: "/education-technology.png", badge: "Education" },
+  { key: "fintech", title: "FinTech", image: "assets/domain-pics/IMG_2818.JPG", badge: "Finance" },
+  { key: "medtech", title: "MedTech", image: "assets/domain-pics/IMG_2816.JPG", badge: "Healthcare" },
+  { key: "agrotech", title: "AgroTech", image: "assets/domain-pics/IMG_2817.JPG", badge: "Agriculture" },
+  { key: "edtech", title: "EdTech", image: "assets/domain-pics/IMG_2815.JPG", badge: "Education" },
 ]
 
 function DomainCard({
@@ -39,8 +39,8 @@ function DomainCard({
           </div>
         </div>
         <div className="mt-2 flex flex-shrink-0 items-center justify-between p-4">
-          <div className="text-sm font-semibold text-foreground">{title}</div>
-          <div className="text-xs text-muted-foreground">{badge}</div>
+          <div className="text-sm font-semibold text-foreground" style={{fontFamily: 'Orbitron, monospace'}}>{title}</div>
+          <div className="text-xs text-muted-foreground" style={{fontFamily: 'Orbitron, monospace'}}>{badge}</div>
         </div>
       </div>
     </CometCard>
@@ -49,7 +49,8 @@ function DomainCard({
 
 export function DomainsSection() {
   return (
-    <section id="domains" aria-labelledby="domains-title" className="scroll-mt-24 py-16 md:py-24 relative">
+    <section id="domains" aria-labelledby="domains-title" className="scroll-mt-24 py-8 md:py-12 relative">
+
       {/* Space-themed background effect */}
       <div className="absolute inset-0 overflow-hidden opacity-20 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-500/20 via-transparent to-transparent"></div>
@@ -61,13 +62,13 @@ export function DomainsSection() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex items-center mb-8">
           <div className="h-1 w-8 bg-cyan-400 mr-4 rounded-full"></div>
-          <h2 id="domains-title" className="text-3xl md:text-4xl font-bold text-balance text-foreground bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+          <h2 id="domains-title" className="text-3xl md:text-4xl font-bold text-balance text-foreground bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent" style={{fontFamily: 'Space Age, monospace'}}>
             Domains
           </h2>
           <div className="h-1 flex-grow bg-gradient-to-r from-cyan-400 to-transparent ml-4 rounded-full"></div>
         </div>
         
-        <div className="backdrop-blur-sm bg-black/30 rounded-xl p-6 border border-cyan-500/20 shadow-lg shadow-cyan-500/5">
+        <div className="backdrop-blur-sm bg-black/20 rounded-xl p-6 border border-cyan-500/20 shadow-lg shadow-cyan-500/5">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {DOMAINS.map((d) => (
               <DomainCard key={d.key} title={d.title} image={d.image} badge={d.badge} />

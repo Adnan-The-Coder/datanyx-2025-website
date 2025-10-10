@@ -9,6 +9,7 @@ import ScheduleSection from "../components/sections/schedule-section"
 import PrizesSection from "../components/sections/prizes-section"
 import SponsorsSection from "../components/sections/sponsors-section"
 import FaqsSection from "../components/sections/faqs-section"
+import Footer from "../components/footer"
 
 export default function Page() {
   const [scrollY, setScrollY] = useState(0)
@@ -17,6 +18,16 @@ export default function Page() {
     const handleScroll = () => setScrollY(window.scrollY)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Ensure page starts at top on refresh/load
+  useEffect(() => {
+    // Clear any hash from URL
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname)
+    }
+    // Scroll to top
+    window.scrollTo(0, 0)
   }, [])
 
   // Calculate scroll progress (0 to 1) - disappear after half viewport height
@@ -50,6 +61,7 @@ export default function Page() {
         <PrizesSection />
         <SponsorsSection />
         <FaqsSection />
+        <Footer />
       </div>
     </main>
   )

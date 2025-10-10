@@ -1,6 +1,14 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
+@font-face {
+  font-family: 'Space Age';
+  src: url('/fonts/space age.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -121,5 +129,22 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Prevent any loading screens or flashes */
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  html {
+    scroll-behavior: smooth;
+    /* Ensure immediate rendering */
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  /* Prevent any loading overlays */
+  body::before,
+  body::after,
+  html::before,
+  html::after {
+    display: none !important;
   }
 }
