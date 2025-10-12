@@ -8,6 +8,19 @@ const FAQS = [
     q: "Will food and accommodation be provided?transportation available?",
     a: "Yes, food will be provided throughout the event. Participants will stay in designated halls under faculty supervision. However, transportation will not be provided; participants are required to manage their own commute.",
   },
+  {q:"What are the eligibility criteria for participating?",a:" Datanyx 2.0 is open to undergraduate students. Each team must consist of 2 to 4 members from the same or different institutions."},
+  {q:" Is there a participation fee?",a:" Registration is completely free of cost. However, teams that are shortlisted for the final 24-hour Datathon will be required to pay a participation fee of ₹800."},
+  {q:" Can we submit more than one problem statement?",a:"No, each team is allowed to work on and submit only one problem statement during Datanyx 2.0."},
+  {q:" Can beginners participate?",a:" Absolutely! Datanyx 2.0 welcomes beginners. Mentorship sessions and a pre-Datathon workshop will be conducted to help participants understand the fundamentals of data science and problem-solving."},
+  {q:"Will teams get to choose their problem statements?",a:"No, problem statements will be assigned randomly on the day of the event. Once assigned, teams must work on that statement for the duration of the Datathon."},
+  {q:"What should we bring for the Datathon?",a:"Participants must bring their laptops, chargers, valid college ID cards, and any other required accessories. Internet access and power points will be provided at the venue."},
+  {q:"Can students from different colleges form a team?",a:" Yes! Inter-college teams are allowed and encouraged to promote collaboration and diversity of ideas."},
+  {q:"What are the judging criteria?",a:"Projects will be evaluated based on innovation, novelty, technical implementation, relevance to the problem statement, creativity, and presentation quality."},
+  {q:"Will there be prizes for winners?",a:" Yes, attractive cash prizes, goodies, and certificates will be awarded to the top-performing teams."},
+  {q:" How many teams will be shortlisted and waitlisted?",a:": Out of all registered teams, 15 teams will be shortlisted for the final 24-hour Datathon based on the quality and completeness of registration details. An additional 10 teams will be waitlisted and may be allowed to participate if slots become available."},
+  {q:"Will certificates be provided to all participants?",a:"Yes, certificates of participation will be given to all teams that take part in the Datathon, and certificates of excellence will be awarded to winners."},
+  {q:"Who can we contact for queries or assistance?",a:"For any questions or support, participants can reach out through the contact form on the website or connect with the organizing team via email or social media handles provided below."},
+
 ]
 
 export function FaqsSection() {
