@@ -1,3 +1,6 @@
+import Image from "next/image";
+
+
 export function Footer() {
   return (
     <footer className="relative bg-black/80 border-t border-gray-800 py-12 mt-16">
@@ -14,14 +17,12 @@ export function Footer() {
           {/* Logo and Description */}
           <div className="md:col-span-2">
             <div className="flex items-center mb-4">
-              <img 
+              <Image 
                 src="/assets/datanyx-logo.png" 
-                alt="Datanyx Logo" 
-                className="h-12 w-auto mr-3"
+                width={180}
+                height={80}
+                alt="DATANYX Logo"
               />
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent" style={{fontFamily: 'Space Age, monospace'}}>
-                DATANYX 2.0
-              </h3>
             </div>
             <p className="text-gray-300 mb-4 leading-relaxed max-w-md" style={{fontFamily: 'Orbitron, monospace'}}>
               Telangana's flagship 24-hour datathon. Join us for an exciting journey of data science, machine learning, and innovation.
