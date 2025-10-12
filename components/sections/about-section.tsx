@@ -1,3 +1,4 @@
+import About from "@/components/sections/images"
 export function AboutSection() {
   const stats = [
     { label: "Participants", value: "300+" },
@@ -66,6 +67,7 @@ export function AboutSection() {
           }
         `}</style>
       </div>
+      <About />
     </section>
   )
 }

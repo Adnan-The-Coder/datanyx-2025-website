@@ -26,9 +26,9 @@ export const WireframeSphere = () => {
           radius: minDimension * 0.12,
           numPoints: 200,
           connectionDistance: 0.5,
-          lineWidth: 0.3,
-          pointSize: 1,
-          glowIntensity: 5
+          lineWidth: 0.5,
+          pointSize: 1.5,
+          glowIntensity: 3
         };
       } else if (width <= 768) {
         // Mobile
@@ -36,9 +36,9 @@ export const WireframeSphere = () => {
           radius: minDimension * 0.13,
           numPoints: 250,
           connectionDistance: 0.45,
-          lineWidth: 0.4,
-          pointSize: 1.2,
-          glowIntensity: 7
+          lineWidth: 0.6,
+          pointSize: 1.8,
+          glowIntensity: 4
         };
       } else if (width <= 1024) {
         // Tablet
@@ -46,9 +46,9 @@ export const WireframeSphere = () => {
           radius: minDimension * 0.14,
           numPoints: 300,
           connectionDistance: 0.4,
-          lineWidth: 0.5,
-          pointSize: 1.5,
-          glowIntensity: 8
+          lineWidth: 0.7,
+          pointSize: 2,
+          glowIntensity: 5
         };
       } else {
         // Desktop
@@ -56,9 +56,9 @@ export const WireframeSphere = () => {
           radius: minDimension * 0.15,
           numPoints: 400,
           connectionDistance: 0.4,
-          lineWidth: 0.5,
-          pointSize: 1.5,
-          glowIntensity: 10
+          lineWidth: 0.8,
+          pointSize: 2.5,
+          glowIntensity: 6
         };
       }
     };
@@ -127,7 +127,9 @@ export const WireframeSphere = () => {
 
     // Animation loop
     const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Black background
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
@@ -170,21 +172,16 @@ export const WireframeSphere = () => {
         });
       });
 
-      // Draw connections
+      // Draw connections with white color
       connections.forEach(([i, j]) => {
         const p1 = projected[i];
         const p2 = projected[j];
         
-        // Calculate opacity based on z-depth
+        // Calculate opacity based on z-depth for depth effect
         const avgZ = (p1.z + p2.z) / 2;
-        const opacity = Math.max(0.1, Math.min(0.8, (avgZ + currentParams.radius) / (currentParams.radius * 2)));
+        const opacity = Math.max(0.15, Math.min(0.7, (avgZ + currentParams.radius) / (currentParams.radius * 2)));
         
-        // Gradient based on position
-        const gradient = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
-        gradient.addColorStop(0, `hsla(190, 95%, 55%, ${opacity})`);
-        gradient.addColorStop(1, `hsla(280, 85%, 65%, ${opacity})`);
-        
-        ctx.strokeStyle = gradient;
+        ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
         ctx.lineWidth = currentParams.lineWidth;
         ctx.beginPath();
         ctx.moveTo(p1.x, p1.y);
@@ -192,16 +189,14 @@ export const WireframeSphere = () => {
         ctx.stroke();
       });
 
-      // Draw points
-      projected.forEach((point, i) => {
-        const opacity = Math.max(0.2, Math.min(1, (point.z + currentParams.radius) / (currentParams.radius * 2)));
+      // Draw points with white color and subtle glow
+      projected.forEach((point) => {
+        const opacity = Math.max(0.3, Math.min(1, (point.z + currentParams.radius) / (currentParams.radius * 2)));
         const size = currentParams.pointSize + (point.z + currentParams.radius) / (currentParams.radius * 2);
         
-        // Alternate colors
-        const hue = i % 2 === 0 ? 190 : 280;
-        ctx.fillStyle = `hsla(${hue}, 95%, 65%, ${opacity})`;
+        ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
         ctx.shadowBlur = currentParams.glowIntensity;
-        ctx.shadowColor = `hsla(${hue}, 95%, 65%, ${opacity})`;
+        ctx.shadowColor = `rgba(255, 255, 255, ${opacity * 0.8})`;
         
         ctx.beginPath();
         ctx.arc(point.x, point.y, size, 0, Math.PI * 2);

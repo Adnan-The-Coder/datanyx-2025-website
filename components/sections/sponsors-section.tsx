@@ -1,7 +1,7 @@
 const SPONSORS = [
   {
     name: "AWS",
-    src: "/AWS.png",
+    src: "AWS.png",
     tier: "Platinum Sponsor"
   },
   {

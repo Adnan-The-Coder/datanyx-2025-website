@@ -9,6 +9,13 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Orbitron Light';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Orbitron Light'), url('/public/fonts/orbitron-light.woff') format('woff');
+}
+
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -147,4 +154,18 @@
   html::after {
     display: none !important;
   }
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll var(--animation-duration, 30s) linear infinite;
+  animation-direction: var(--animation-direction, forwards);
 }

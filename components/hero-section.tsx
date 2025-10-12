@@ -2,7 +2,8 @@
 
 import { useEffect, useMemo, useState, useRef } from "react"
 import { Badge } from "./ui/badge"
-import GalaxyParticles from "./three/galaxy-particles"
+// import GalaxyParticles from "./three/galaxy-particles"
+import Particles from '@/components/ui/Particles';
 import WireframeSphere from "./three/wireframe-sphere"
 
 function useCountdown(targetISO: string) {
@@ -113,10 +114,24 @@ export function HeroSection() {
   return (
     <section id="home" aria-labelledby="datanyx-hero-title" className="relative w-full py-24 md:py-36 overflow-hidden min-h-screen">
       {/* Galaxy Background - Fixed */}
-      <GalaxyParticles />
+      {/* <GalaxyParticles /> */}
+
+      <div style={{ width: '100%', height: '600px', position: 'relative' }}>
+        <Particles
+          particleColors={['#ffffff', '#ffffff']}
+          particleCount={700}
+          particleSpread={10}
+          speed={0.2}
+          particleBaseSize={100}
+          moveParticlesOnHover={true}
+          alphaParticles={false}
+          disableRotation={false}
+        />
+      </div>
+
       
       {/* Wireframe Sphere - Scroll animated */}
-      <div
+      {/* <div
         ref={sphereRef}
         style={{
           position: 'fixed',
@@ -129,9 +144,9 @@ export function HeroSection() {
           backfaceVisibility: 'hidden',
           pointerEvents: 'none'
         }}
-      >
-        <WireframeSphere />
-      </div>
+      > */}
+        {/* <WireframeSphere /> */}
+      {/* </div> */}
       
       {/* Center Image - Scroll animated on top of the sphere */}
       <div 
