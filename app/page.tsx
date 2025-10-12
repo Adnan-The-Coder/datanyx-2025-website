@@ -36,11 +36,7 @@ export default function Page() {
 
   return (
     <main className="min-h-dvh scroll-smooth dark">
-      <Navbar style={{ 
-        opacity: scrollProgress,
-        transition: 'opacity 0.3s ease-out',
-        visibility: scrollProgress > 0.1 ? 'visible' : 'hidden'
-      }} />
+      <Navbar />
       <HeroSection />
       
       {/* Content sections with fade-in effect */}
