@@ -31,6 +31,10 @@ html, body {
   font-display: swap;
 }
 
+.font-space-age {
+  font-family: 'Space Age', sans-serif;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 :root {

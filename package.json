@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@heroui/react": "^2.8.5",
     "@radix-ui/react-accordion": "latest",
     "@radix-ui/react-slot": "latest",
     "@react-three/drei": "latest",
