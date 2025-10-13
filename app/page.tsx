@@ -9,6 +9,7 @@ import ScheduleSection from "../components/sections/schedule-section"
 import PrizesSection from "../components/sections/prizes-section"
 import SponsorsSection from "../components/sections/sponsors-section"
 import FaqsSection from "../components/sections/faqs-section"
+import Organizers from "@/components/sections/organizers"
 import Footer from "../components/footer"
 
 export default function Page() {
@@ -57,6 +58,7 @@ export default function Page() {
         <PrizesSection />
         <SponsorsSection />
         <FaqsSection />
+        <Organizers/>
         <Footer />
       </div>
     </main>
