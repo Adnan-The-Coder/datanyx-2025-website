@@ -116,7 +116,7 @@ export function HeroSection() {
       {/* Galaxy Background - Fixed */}
       {/* <GalaxyParticles /> */}
 
-      <div style={{ width: '100%', height: '600px', position: 'relative' }}>
+      {/* <div style={{ width: '100%', height: '600px', position: 'relative' }}>
         <Particles
           particleColors={['#ffffff', '#ffffff']}
           particleCount={700}
@@ -127,7 +127,7 @@ export function HeroSection() {
           alphaParticles={false}
           disableRotation={false}
         />
-      </div>
+      </div> */}
 
       
       {/* Wireframe Sphere - Scroll animated */}

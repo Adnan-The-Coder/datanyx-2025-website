@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
-import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
+import Background from '@/components/ui/background'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -26,7 +25,8 @@ export default function RootLayout({
           `
         }} />
       </head>
-      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} dark bg-black`}>
+      <body className="relative">
+        <Background />
         {children}
       </body>
     </html>

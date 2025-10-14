@@ -11,9 +11,12 @@ import SponsorsSection from "../components/sections/sponsors-section"
 import FaqsSection from "../components/sections/faqs-section"
 import Organizers from "@/components/sections/organizers"
 import Footer from "../components/footer"
+import { DoubleStairsPreloader } from '@/components/ui/Preload'
 
 export default function Page() {
   const [scrollY, setScrollY] = useState(0)
+  const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
@@ -36,6 +39,8 @@ export default function Page() {
   const scrollProgress = Math.min(scrollY / halfViewportHeight, 1)
 
   return (
+    <>
+     {/* <DoubleStairsPreloader /> */}
     <main className="min-h-dvh scroll-smooth dark">
       <Navbar />
       <HeroSection />
@@ -62,5 +67,6 @@ export default function Page() {
         <Footer />
       </div>
     </main>
+    </>
   )
 }
