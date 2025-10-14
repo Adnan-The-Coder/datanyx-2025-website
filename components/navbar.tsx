@@ -1,8 +1,10 @@
 "use client";
-import Image from "next/image";
-import React, { useState, useEffect } from "react";
 
-export function Navbar() {
+import Image from "next/image";
+import React, { useState, useEffect, useRef, Dispatch, SetStateAction } from "react";
+import { motion } from "framer-motion";
+
+export default function Navbar() {
   const [isVisible, setIsVisible] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -10,70 +12,20 @@ export function Navbar() {
     const timer = setTimeout(() => {
       setIsVisible(true);
     }, 10);
-
     return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
-    // Prevent body scroll when mobile menu is open
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
+    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "unset";
   }, [isMobileMenuOpen]);
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
-  const smoothScrollTo = (hash: string) => {
-    const target = document.querySelector(hash);
-    if (!target) return;
-
-    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - 120;
-    
-    if ('scrollBehavior' in document.documentElement.style) {
-      window.scrollTo({
-        top: targetPosition,
-        behavior: 'smooth'
-      });
-    } else {
-      const startPosition = window.pageYOffset;
-      const distance = targetPosition - startPosition;
-      const duration = 800;
-      let start: number;
-
-      function animation(currentTime: number) {
-        if (start === undefined) start = currentTime;
-        const timeElapsed = currentTime - start;
-        const run = ease(timeElapsed, startPosition, distance, duration);
-        window.scrollTo(0, run);
-        if (timeElapsed < duration) requestAnimationFrame(animation);
-      }
-
-      function ease(t: number, b: number, c: number, d: number) {
-        t /= d / 2;
-        if (t < 1) return c / 2 * t * t + b;
-        t--;
-        return -c / 2 * (t * (t - 2) - 1) + b;
-      }
-
-      requestAnimationFrame(animation);
-    }
-  };
-
-  const handleNavClick = (hash: string) => {
-    smoothScrollTo(hash);
-    setIsMobileMenuOpen(false);
-  };
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   const handleSmoothScroll = (hash: string) => {
-    smoothScrollTo(hash);
+    const target = document.querySelector(hash);
+    if (!target) return;
+    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - 120;
+    window.scrollTo({ top: targetPosition, behavior: "smooth" });
   };
 
   return (
@@ -84,11 +36,6 @@ export function Navbar() {
           src: url('/fonts/space age.ttf') format('truetype');
           font-weight: normal;
           font-style: normal;
-        }
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap');
-        
-        * {
-          box-sizing: border-box;
         }
 
         .navbar-container {
@@ -101,9 +48,9 @@ export function Navbar() {
           justify-content: center;
           align-items: flex-start;
           padding: 20px 20px 0 20px;
-          transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out, transform 0.8s ease-in-out;
+          transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
         }
-        
+
         .navbar {
           background: rgba(0, 0, 0, 0.85);
           backdrop-filter: blur(20px);
@@ -115,125 +62,81 @@ export function Navbar() {
           align-items: center;
           justify-content: space-between;
           width: 100%;
-          max-width: 1400px;
-          gap: 24px;
+          max-width: 1600px;
+          gap: 20px;
+          transition: box-shadow 0.3s ease, border-color 0.3s ease;
         }
-        
+
+        .navbar:hover {
+          box-shadow: 0 0 40px rgba(255, 255, 255, 0.4), 0 8px 32px rgba(0, 0, 0, 0.5);
+          border-color: rgba(255, 255, 255, 0.4);
+        }
+
         .navbar-logo {
-          display: flex;
-          align-items: center;
           flex-shrink: 0;
-          cursor: pointer;
         }
-        
+
         .navbar-logo img {
           height: 52px;
           width: auto;
-          filter: brightness(1.2) drop-shadow(0 0 8px rgba(7, 208, 248, 0.4));
+          filter: brightness(1.2);
           transition: all 0.3s ease;
-        }
-        
-        .navbar-logo img:hover {
-          filter: brightness(1.5) drop-shadow(0 0 12px rgba(7, 208, 248, 0.8));
-          transform: scale(1.05);
-        }
-        
-        .navbar-menu {
-          display: none;
-          align-items: center;
-          gap: 8px;
-          flex: 1;
-          justify-content: center;
-          max-width: 900px;
-        }
-        
-        .nav-button {
-          background: transparent;
-          border: none;
-          color: white;
-          font-family: 'Space Age', monospace;
-          font-size: 13px;
-          font-weight: 500;
-          letter-spacing: 0.8px;
-          text-transform: uppercase;
-          padding: 10px 16px;
-          border-radius: 25px;
           cursor: pointer;
-          transition: all 0.3s ease;
-          outline: none;
-          white-space: nowrap;
-          text-shadow: 0 0 5px rgba(7, 208, 248, 0.3);
-          position: relative;
-        }
-        
-        .nav-button:hover {
-          color: #07d0f8ff;
-          background: rgba(7, 208, 248, 0.1);
-          text-shadow: 0 0 10px rgba(7, 208, 248, 0.8), 0 0 20px rgba(7, 208, 248, 0.4);
-          transform: translateY(-2px);
         }
 
-        .nav-button:active {
-          transform: translateY(0);
+        .navbar-logo img:hover {
+          transform: scale(1.05);
+        }
+
+        .navbar-menu {
+          display: none;
         }
 
         .hamburger-button {
           display: flex;
+          flex-direction: column;
+          gap: 5px;
           background: transparent;
           border: none;
           cursor: pointer;
-          padding: 8px;
-          z-index: 1002;
-          flex-direction: column;
-          gap: 5px;
           flex-shrink: 0;
-          position: relative;
         }
 
         .hamburger-line {
           width: 28px;
           height: 3px;
           background: white;
-          transition: all 0.3s ease;
-          box-shadow: 0 0 8px rgba(7, 208, 248, 0.5);
           border-radius: 2px;
+          transition: all 0.3s ease;
         }
 
         .hamburger-button:hover .hamburger-line {
-          background: #07d0f8ff;
-          box-shadow: 0 0 12px rgba(7, 208, 248, 0.8);
+          box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
         }
 
         .hamburger-button.active .hamburger-line:nth-child(1) {
-          transform: rotate(45deg) translate(8px, 8px);
+          transform: rotate(45deg) translate(6px, 6px);
         }
-
         .hamburger-button.active .hamburger-line:nth-child(2) {
           opacity: 0;
         }
-
         .hamburger-button.active .hamburger-line:nth-child(3) {
-          transform: rotate(-45deg) translate(8px, -8px);
+          transform: rotate(-45deg) translate(6px, -6px);
         }
 
         .mobile-menu-overlay {
-          display: flex;
           position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
+          inset: 0;
           background: rgba(0, 0, 0, 0.97);
           backdrop-filter: blur(10px);
-          z-index: 998;
-          opacity: 0;
-          visibility: hidden;
-          transition: opacity 0.3s ease, visibility 0.3s ease;
+          display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          padding: 100px 20px 40px 20px;
-          overflow-y: auto;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 0.3s ease, visibility 0.3s ease;
+          z-index: 998;
         }
 
         .mobile-menu-overlay.active {
@@ -241,201 +144,28 @@ export function Navbar() {
           visibility: visible;
         }
 
-        .mobile-menu-content {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 20px;
-          width: 100%;
-          max-width: 400px;
-          animation: slideUp 0.4s ease-out;
-        }
-
-        @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
         .mobile-menu-button {
           background: transparent;
           border: 2px solid rgba(255, 255, 255, 0.2);
           color: white;
-          font-family: 'Space Age', monospace;
+          font-family: 'Space Age', sans-serif;
           font-size: 16px;
-          font-weight: 500;
-          letter-spacing: 2px;
-          text-transform: uppercase;
-          padding: 18px 40px;
+          letter-spacing: 0.05em;
+          padding: 16px 40px;
           border-radius: 35px;
-          cursor: pointer;
+          margin: 10px;
           transition: all 0.3s ease;
-          text-shadow: 0 0 5px rgba(7, 208, 248, 0.3);
-          width: 100%;
-          text-align: center;
+          cursor: pointer;
+          text-transform: uppercase;
         }
 
-        .mobile-menu-button:hover,
-        .mobile-menu-button:active {
-          color: #07d0f8ff;
-          background: rgba(7, 208, 248, 0.15);
-          border-color: #07d0f8ff;
-          text-shadow: 0 0 10px rgba(7, 208, 248, 0.8), 0 0 20px rgba(7, 208, 248, 0.4);
-          transform: scale(1.03);
-          box-shadow: 0 0 20px rgba(7, 208, 248, 0.3);
+        .mobile-menu-button:hover {
+          background: white;
+          color: black;
+          box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
         }
 
-        /* Desktop - Large screens */
-        @media (min-width: 1200px) {
-          .navbar-container {
-            padding: 24px 30px 0 30px;
-          }
-
-          .navbar {
-            padding: 16px 48px;
-            gap: 32px;
-          }
-
-          .navbar-logo img {
-            height: 56px;
-          }
-
-          .navbar-menu {
-            display: flex;
-            gap: 12px;
-          }
-
-          .nav-button {
-            font-size: 16px;
-            padding: 10px 20px;
-            letter-spacing: 1px;
-          }
-
-          .hamburger-button {
-            display: none;
-          }
-        }
-
-        /* Desktop - Medium screens */
-        @media (min-width: 1024px) and (max-width: 1199px) {
-          .navbar-container {
-            padding: 20px 24px 0 24px;
-          }
-
-          .navbar {
-            padding: 14px 40px;
-            gap: 24px;
-          }
-
-          .navbar-logo img {
-            height: 52px;
-          }
-
-          .navbar-menu {
-            display: flex;
-            gap: 6px;
-          }
-
-          .nav-button {
-            font-size: 16px;
-            padding: 9px 16px;
-          }
-
-          .hamburger-button {
-            display: none;
-          }
-        }
-
-        /* Tablet landscape */
-        @media (min-width: 900px) and (max-width: 1023px) {
-          .navbar-container {
-            padding: 18px 20px 0 20px;
-          }
-
-          .navbar {
-            padding: 14px 32px;
-            gap: 20px;
-          }
-
-          .navbar-logo img {
-            height: 50px;
-          }
-
-          .navbar-menu {
-            display: flex;
-            gap: 4px;
-          }
-
-          .nav-button {
-            font-size: 16px;
-            padding: 8px 14px;
-            letter-spacing: 0.6px;
-          }
-
-          .hamburger-button {
-            display: none;
-          }
-        }
-
-        /* Tablet portrait */
-        @media (min-width: 768px) and (max-width: 899px) {
-          .navbar-container {
-            padding: 16px 20px 0 20px;
-          }
-
-          .navbar {
-            padding: 12px 28px;
-          }
-
-          .navbar-logo img {
-            height: 48px;
-          }
-
-          .mobile-menu-overlay {
-            padding: 120px 30px 50px 30px;
-          }
-
-          .mobile-menu-content {
-            gap: 18px;
-          }
-        }
-
-        /* Mobile large */
-        @media (min-width: 480px) and (max-width: 767px) {
-          .navbar-container {
-            padding: 14px 16px 0 16px;
-          }
-
-          .navbar {
-            padding: 12px 24px;
-            border-radius: 40px;
-          }
-
-          .navbar-logo img {
-            height: 44px;
-          }
-
-          .mobile-menu-overlay {
-            padding: 110px 24px 40px 24px;
-          }
-
-          .mobile-menu-content {
-            gap: 16px;
-            max-width: 350px;
-          }
-
-          .mobile-menu-button {
-            font-size: 15px;
-            padding: 16px 36px;
-          }
-        }
-
-        /* Mobile small */
+        /* Extra small mobile */
         @media (max-width: 479px) {
           .navbar-container {
             padding: 12px 12px 0 12px;
@@ -443,7 +173,33 @@ export function Navbar() {
 
           .navbar {
             padding: 10px 20px;
-            border-radius: 35px;
+            gap: 12px;
+          }
+
+          .navbar-logo img {
+            height: 36px;
+          }
+
+          .hamburger-line {
+            width: 24px;
+            height: 2.5px;
+          }
+
+          .mobile-menu-button {
+            font-size: 14px;
+            padding: 14px 32px;
+          }
+        }
+
+        /* Mobile small */
+        @media (min-width: 480px) and (max-width: 767px) {
+          .navbar-container {
+            padding: 14px 16px 0 16px;
+          }
+
+          .navbar {
+            padding: 12px 24px;
+            gap: 16px;
           }
 
           .navbar-logo img {
@@ -455,97 +211,207 @@ export function Navbar() {
             height: 2.5px;
           }
 
-          .mobile-menu-overlay {
-            padding: 100px 20px 30px 20px;
-          }
-
-          .mobile-menu-content {
-            gap: 14px;
-            max-width: 320px;
-          }
-
           .mobile-menu-button {
-            font-size: 14px;
-            padding: 15px 32px;
-            letter-spacing: 1.5px;
+            font-size: 15px;
+            padding: 15px 36px;
           }
         }
 
-        /* Extra small mobile */
-        @media (max-width: 360px) {
+        /* Tablet */
+        @media (min-width: 768px) and (max-width: 1023px) {
           .navbar-container {
-            padding: 10px 10px 0 10px;
+            padding: 16px 20px 0 20px;
           }
 
           .navbar {
-            padding: 8px 16px;
-            border-radius: 30px;
+            padding: 12px 28px;
+            gap: 20px;
           }
 
           .navbar-logo img {
-            height: 36px;
+            height: 48px;
           }
 
           .mobile-menu-button {
-            font-size: 13px;
-            padding: 14px 28px;
+            font-size: 16px;
+            padding: 16px 40px;
+          }
+        }
+
+        /* Desktop - Show tabs, hide hamburger */
+        @media (min-width: 1024px) {
+          .navbar {
+            gap: 80px;
+          }
+
+          .navbar-menu {
+            display: flex;
+            flex: 1;
+            justify-content: center;
+            max-width: 100%;
+          }
+          
+          .hamburger-button {
+            display: none !important;
+          }
+        }
+
+        /* Large desktop */
+        @media (min-width: 1440px) {
+          .navbar-container {
+            padding: 24px 30px 0 30px;
+          }
+
+          .navbar {
+            padding: 16px 40px;
+          }
+
+          .navbar-logo img {
+            height: 56px;
           }
         }
       `}</style>
-      
-      <div 
+
+      <div
         className="navbar-container"
         style={{
           opacity: isVisible ? 1 : 0,
-          visibility: isVisible ? 'visible' : 'hidden',
-          transform: isVisible ? 'translateY(0)' : 'translateY(-20px)'
+          transform: isVisible ? "translateY(0)" : "translateY(-20px)",
         }}
       >
         <nav className="navbar">
-          <div className="navbar-logo" onClick={() => handleSmoothScroll('#home')}>
-            <Image 
-              src="/assets/Navbar logo  FIANL(400 x 200 px).png" 
+          {/* Logo */}
+          <div className="navbar-logo" onClick={() => handleSmoothScroll("#home")}>
+            <Image
+              src="/assets/Navbar logo  FIANL(400 x 200 px).png"
               width={160}
               height={80}
               alt="DATANYX Logo"
+              priority
             />
           </div>
-          
+
+          {/* Desktop Menu with Sliding Tabs */}
           <div className="navbar-menu">
-            <button className="nav-button" onClick={() => handleSmoothScroll('#home')}>HOME</button>
-            <button className="nav-button" onClick={() => handleSmoothScroll('#about')}>ABOUT</button>
-            <button className="nav-button" onClick={() => handleSmoothScroll('#domains')}>DOMAINS</button>
-            <button className="nav-button" onClick={() => handleSmoothScroll('#schedule')}>SCHEDULE</button>
-            <button className="nav-button" onClick={() => handleSmoothScroll('#prizes')}>PRIZES</button>
-            <button className="nav-button" onClick={() => handleSmoothScroll('#sponsors')}>SPONSORS</button>
-            <button className="nav-button" onClick={() => handleSmoothScroll('#faqs')}>FAQS</button>
+            <SlideTabs
+              items={["HOME", "ABOUT", "DOMAINS", "SCHEDULE", "PRIZES", "SPONSORS", "FAQS"]}
+              onItemClick={handleSmoothScroll}
+            />
           </div>
 
-          <button 
-            className={`hamburger-button ${isMobileMenuOpen ? 'active' : ''}`}
+          {/* Mobile Menu Button */}
+          <button
+            className={`hamburger-button ${isMobileMenuOpen ? "active" : ""}`}
             onClick={toggleMobileMenu}
             aria-label="Toggle menu"
           >
-            <span className="hamburger-line"></span>
-            <span className="hamburger-line"></span>
-            <span className="hamburger-line"></span>
+            <span className="hamburger-line" />
+            <span className="hamburger-line" />
+            <span className="hamburger-line" />
           </button>
         </nav>
       </div>
 
-      <div className={`mobile-menu-overlay ${isMobileMenuOpen ? 'active' : ''}`}>
-        <div className="mobile-menu-content">
-          <button className="mobile-menu-button" onClick={() => handleNavClick('#home')}>HOME</button>
-          <button className="mobile-menu-button" onClick={() => handleNavClick('#about')}>ABOUT</button>
-          <button className="mobile-menu-button" onClick={() => handleNavClick('#domains')}>DOMAINS</button>
-          <button className="mobile-menu-button" onClick={() => handleNavClick('#schedule')}>SCHEDULE</button>
-          <button className="mobile-menu-button" onClick={() => handleNavClick('#prizes')}>PRIZES</button>
-          <button className="mobile-menu-button" onClick={() => handleNavClick('#sponsors')}>SPONSORS</button>
-          <button className="mobile-menu-button" onClick={() => handleNavClick('#faqs')}>FAQS</button>
-        </div>
+      {/* Mobile Menu */}
+      <div className={`mobile-menu-overlay ${isMobileMenuOpen ? "active" : ""}`}>
+        {["HOME", "ABOUT", "DOMAINS", "SCHEDULE", "PRIZES", "SPONSORS", "FAQS"].map((item) => (
+          <button
+            key={item}
+            className="mobile-menu-button"
+            onClick={() => {
+              handleSmoothScroll(`#${item.toLowerCase()}`);
+              setIsMobileMenuOpen(false);
+            }}
+          >
+            {item}
+          </button>
+        ))}
       </div>
     </>
   );
 }
 
-export default Navbar;
+/* ---------- Sliding Tabs Component ---------- */
+
+type Position = { left: number; width: number; opacity: number };
+
+const SlideTabs = ({
+  items,
+  onItemClick,
+}: {
+  items: string[];
+  onItemClick: (hash: string) => void;
+}) => {
+  const [position, setPosition] = useState<Position>({ left: 0, width: 0, opacity: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <ul
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => {
+        setPosition((pv) => ({ ...pv, opacity: 0 }));
+        setIsHovered(false);
+      }}
+      className="relative flex rounded-full border bg-black/90 backdrop-blur-md"
+      style={{ 
+        justifyContent: 'space-between',
+        padding: '16px 24px',
+        width: '100%',
+        maxWidth: '100%',
+        borderColor: isHovered ? 'rgba(255, 255, 255, 0.4)' : 'rgba(255, 255, 255, 0.2)',
+        boxShadow: isHovered 
+          ? '0 0 30px rgba(255, 255, 255, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.05)' 
+          : 'none',
+        transition: 'all 0.3s ease'
+      }}
+    >
+      {items.map((item) => (
+        <Tab key={item} label={item} setPosition={setPosition} onClick={onItemClick} />
+      ))}
+      <Cursor position={position} />
+    </ul>
+  );
+};
+
+const Tab = ({
+  label,
+  setPosition,
+  onClick,
+}: {
+  label: string;
+  setPosition: Dispatch<SetStateAction<Position>>;
+  onClick: (hash: string) => void;
+}) => {
+  const ref = useRef<HTMLLIElement | null>(null);
+
+  return (
+    <li
+      ref={ref}
+      onMouseEnter={() => {
+        if (!ref.current) return;
+        const { width } = ref.current.getBoundingClientRect();
+        setPosition({ left: ref.current.offsetLeft, width, opacity: 1 });
+      }}
+      onClick={() => onClick(`#${label.toLowerCase()}`)}
+      className="relative z-10 cursor-pointer text-white mix-blend-difference transition-all"
+      style={{ 
+        fontFamily: "'Space Age', sans-serif",
+        letterSpacing: '0.05em',
+        fontSize: '16px',
+        padding: '10px 12px',
+        textTransform: 'uppercase'
+      }}
+    >
+      {label}
+    </li>
+  );
+};
+
+const Cursor = ({ position }: { position: Position }) => (
+  <motion.li
+    animate={{ ...position }}
+    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+    className="absolute z-0 rounded-full bg-white"
+    style={{ height: 'calc(100% - 8px)', top: '4px' }}
+  />
+);
