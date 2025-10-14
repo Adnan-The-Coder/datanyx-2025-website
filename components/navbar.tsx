@@ -137,11 +137,21 @@ export default function Navbar() {
           visibility: hidden;
           transition: opacity 0.3s ease, visibility 0.3s ease;
           z-index: 998;
+          padding: 40px 20px;
         }
 
         .mobile-menu-overlay.active {
           opacity: 1;
           visibility: visible;
+        }
+
+        .mobile-menu-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 16px;
+          width: 100%;
+          max-width: 500px;
         }
 
         .mobile-menu-button {
@@ -151,18 +161,21 @@ export default function Navbar() {
           font-family: 'Space Age', sans-serif;
           font-size: 16px;
           letter-spacing: 0.05em;
-          padding: 16px 40px;
+          padding: 18px 40px;
           border-radius: 35px;
-          margin: 10px;
           transition: all 0.3s ease;
           cursor: pointer;
           text-transform: uppercase;
+          width: 100%;
+          text-align: center;
         }
 
-        .mobile-menu-button:hover {
-          background: white;
-          color: black;
-          box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+        .mobile-menu-button:hover,
+        .mobile-menu-button:active {
+          background: rgba(255, 255, 255, 0.1);
+          border-color: rgba(255, 255, 255, 0.5);
+          box-shadow: 0 0 30px rgba(255, 255, 255, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.1);
+          transform: translateY(-2px);
         }
 
         /* Extra small mobile */
@@ -185,9 +198,18 @@ export default function Navbar() {
             height: 2.5px;
           }
 
+          .mobile-menu-overlay {
+            padding: 30px 16px;
+          }
+
+          .mobile-menu-content {
+            gap: 12px;
+            max-width: 100%;
+          }
+
           .mobile-menu-button {
             font-size: 14px;
-            padding: 14px 32px;
+            padding: 16px 32px;
           }
         }
 
@@ -211,9 +233,17 @@ export default function Navbar() {
             height: 2.5px;
           }
 
+          .mobile-menu-overlay {
+            padding: 35px 20px;
+          }
+
+          .mobile-menu-content {
+            gap: 14px;
+          }
+
           .mobile-menu-button {
             font-size: 15px;
-            padding: 15px 36px;
+            padding: 17px 36px;
           }
         }
 
@@ -232,9 +262,17 @@ export default function Navbar() {
             height: 48px;
           }
 
+          .mobile-menu-overlay {
+            padding: 40px 30px;
+          }
+
+          .mobile-menu-content {
+            gap: 16px;
+          }
+
           .mobile-menu-button {
             font-size: 16px;
-            padding: 16px 40px;
+            padding: 18px 40px;
           }
         }
 
@@ -314,18 +352,20 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       <div className={`mobile-menu-overlay ${isMobileMenuOpen ? "active" : ""}`}>
-        {["HOME", "ABOUT", "DOMAINS", "SCHEDULE", "PRIZES", "SPONSORS", "FAQS"].map((item) => (
-          <button
-            key={item}
-            className="mobile-menu-button"
-            onClick={() => {
-              handleSmoothScroll(`#${item.toLowerCase()}`);
-              setIsMobileMenuOpen(false);
-            }}
-          >
-            {item}
-          </button>
-        ))}
+        <div className="mobile-menu-content">
+          {["HOME", "ABOUT", "DOMAINS", "SCHEDULE", "PRIZES", "SPONSORS", "FAQS"].map((item) => (
+            <button
+              key={item}
+              className="mobile-menu-button"
+              onClick={() => {
+                handleSmoothScroll(`#${item.toLowerCase()}`);
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
       </div>
     </>
   );
