@@ -311,7 +311,7 @@ export function Navbar() {
           }
 
           .nav-button {
-            font-size: 14px;
+            font-size: 16px;
             padding: 10px 20px;
             letter-spacing: 1px;
           }
@@ -342,7 +342,7 @@ export function Navbar() {
           }
 
           .nav-button {
-            font-size: 13px;
+            font-size: 16px;
             padding: 9px 16px;
           }
 
@@ -372,7 +372,7 @@ export function Navbar() {
           }
 
           .nav-button {
-            font-size: 12px;
+            font-size: 16px;
             padding: 8px 14px;
             letter-spacing: 0.6px;
           }
