@@ -1,8 +1,8 @@
 "use client"
 
 import { useEffect, useMemo, useState, useRef } from "react"
-import RegisterButton from "./ui/RegisterButton"
 import WireframeSphere from "./three/wireframe-sphere"
+import StarBorder from "@/components/ui/StarBorder_button"
 
 function useCountdown(targetISO: string) {
   const target = useMemo(() => new Date(targetISO).getTime(), [targetISO])
@@ -27,7 +27,7 @@ function useCountdown(targetISO: string) {
 export function HeroSection() {
   const { d, h, m, s, done, isClient } = useCountdown("2025-11-22T10:00:00Z")
   const sphereRef = useRef<HTMLDivElement>(null)
-  const logoRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -53,9 +53,9 @@ export function HeroSection() {
         sphereRef.current.style.opacity = sphereOpacity.toString()
       }
       
-      if (logoRef.current) {
-        logoRef.current.style.transform = `translate3d(-50%, calc(-35% + ${sphereTransformY}vh), 0)`
-        logoRef.current.style.opacity = sphereOpacity.toString()
+      if (contentRef.current) {
+        contentRef.current.style.transform = `translate3d(-50%, calc(-50% + ${sphereTransformY}vh), 0)`
+        contentRef.current.style.opacity = sphereOpacity.toString()
       }
       
       if (bottomRef.current) {
@@ -99,7 +99,6 @@ export function HeroSection() {
       aria-labelledby="datanyx-hero-title" 
       className="relative w-full py-24 md:py-36 overflow-hidden min-h-screen"
     >
-      {/* Add global style for responsive sizing */}
       <style jsx>{`
         .logo-image {
           width: 98vw;
@@ -109,7 +108,6 @@ export function HeroSection() {
           filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.3));
         }
         
-        /* Laptop and larger - 20% smaller */
         @media (min-width: 1024px) {
           .logo-image {
             width: 65vw;
@@ -117,7 +115,6 @@ export function HeroSection() {
           }
         }
         
-        /* Extra large screens */
         @media (min-width: 1920px) {
           .logo-image {
             width: 50vw;
@@ -126,29 +123,43 @@ export function HeroSection() {
         }
       `}</style>
 
-      {/* Center Logo - HUGE on Mobile, Smaller on Laptop */}
+      {/* Logo + Button Container - Animates Together */}
       <div 
-        ref={logoRef}
-        className="fixed pointer-events-none"
+        ref={contentRef}
+        className="fixed"
         style={{ 
           zIndex: 600,
-          top: '35%',
+          top: '50%',
           left: '50%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
           willChange: 'transform, opacity',
           backfaceVisibility: 'hidden',
-          width: '100%',
-          padding: '0 5px'
         }}
       >
-        <img 
-          src="/assets/datanyx-logo.png"
-          alt="DATANYX Logo"
-          className="logo-image"
-        />
+        <div className="flex flex-col items-center gap-8 md:gap-12">
+          {/* Logo */}
+          <img 
+            src="/assets/datanyx-logo.png"
+            alt="DATANYX Logo"
+            className="logo-image"
+          />
+          
+          {/* StarBorder Button */}
+          <div className="pointer-events-auto">
+            <StarBorder
+              as="a"
+              href="https://unstop.com/hackathons/datanyx-muffakham-jah-college-of-engineering-technology-1188761"
+              target="_blank"
+              rel="noopener noreferrer"
+              color="white"
+              speed="6s"
+              textSpeed="10s"
+              className="cursor-pointer"
+              style={{ textDecoration: 'none' }}
+            >
+              Register Now
+            </StarBorder>
+          </div>
+        </div>
       </div>
 
       <div 
