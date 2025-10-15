@@ -11,7 +11,6 @@ import SponsorsSection from "../components/sections/sponsors-section"
 import FaqsSection from "../components/sections/faqs-section"
 import Organizers from "@/components/sections/organizers"
 import Footer from "../components/footer"
-import { DoubleStairsPreloader } from '@/components/ui/Preload'
 
 export default function Page() {
   const [scrollY, setScrollY] = useState(0)
@@ -55,7 +54,7 @@ export default function Page() {
         }}
       >
         {/* Gradient background overlay for sections */}
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black via-gray-900 to-black opacity-90 pointer-events-none" />
+        <div className="absolute inset-0 -z-10 pointer-events-none" />
         
         <AboutSection />
         <DomainsSection />

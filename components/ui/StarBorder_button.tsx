@@ -1,13 +1,16 @@
 import React from 'react';
 
-type StarBorderProps<T extends React.ElementType> = React.ComponentPropsWithoutRef<T> & {
+type StarBorderProps<T extends React.ElementType> = Omit<
+  React.ComponentPropsWithoutRef<T>,
+  'as'
+> & {
   as?: T;
   className?: string;
   children?: React.ReactNode;
   color?: string;
   speed?: string;
   thickness?: number;
-  textSpeed?: string;
+  textSpeed?: string; // accepted but not forwarded to DOM
 };
 
 const StarBorder = <T extends React.ElementType = 'button'>({
@@ -16,11 +19,14 @@ const StarBorder = <T extends React.ElementType = 'button'>({
   color = 'white',
   speed = '5s',
   thickness = 3,
-  textSpeed = '12s',
+  textSpeed, // destructured to prevent forwarding
   children,
   ...rest
 }: StarBorderProps<T>) => {
   const Component = as || 'button';
+
+  // Separate style so we don't lose user's inline styles
+  const { style: restStyle, ...domProps } = (rest as any) || {};
 
   return (
     <>
@@ -28,57 +34,39 @@ const StarBorder = <T extends React.ElementType = 'button'>({
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
 
         @keyframes star-movement-bottom {
-        0% { transform: translateX(0%); opacity: 1; }
-        50% { transform: translateX(-100%); opacity: 0.7; }
-        100% { transform: translateX(0%); opacity: 1; }
+          0% { transform: translateX(0%); opacity: 1; }
+          50% { transform: translateX(-100%); opacity: 0.7; }
+          100% { transform: translateX(0%); opacity: 1; }
         }
-
         @keyframes star-movement-top {
-        0% { transform: translateX(0%); opacity: 1; }
-        50% { transform: translateX(100%); opacity: 0.7; }
-        100% { transform: translateX(0%); opacity: 1; }
+          0% { transform: translateX(0%); opacity: 1; }
+          50% { transform: translateX(100%); opacity: 0.7; }
+          100% { transform: translateX(0%); opacity: 1; }
         }
 
-        
-        @keyframes scroll-left {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        
         .star-bottom {
           animation: star-movement-bottom ${speed} linear infinite alternate;
         }
-        
         .star-top {
           animation: star-movement-top ${speed} linear infinite alternate;
-        }
-        
-        .scroll-text {
-          animation: scroll-left ${textSpeed} linear infinite;
         }
 
         .star-border-button {
           transition: box-shadow 0.3s ease, border-color 0.3s ease;
         }
-
         .star-border-button:hover {
           box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
           border-color: rgba(255, 255, 255, 0.5) !important;
-        }
-
-        .bullet-point {
-          filter: none !important;
-          text-shadow: none !important;
         }
       `}</style>
 
       <Component
         className={`relative inline-block overflow-hidden ${className}`}
-        {...(rest as any)}
+        {...domProps} // safe; no textSpeed leaks
         style={{
           padding: `${thickness}px`,
           borderRadius: '12px',
-          ...(rest as any).style
+          ...(restStyle || {}),
         }}
       >
         {/* Bottom Star */}
@@ -93,10 +81,9 @@ const StarBorder = <T extends React.ElementType = 'button'>({
             right: '-250%',
             borderRadius: '50%',
             background: `radial-gradient(circle, ${color}, transparent 15%)`,
-            zIndex: 0
+            zIndex: 0,
           }}
         />
-        
         {/* Top Star */}
         <div
           className="star-top"
@@ -109,14 +96,14 @@ const StarBorder = <T extends React.ElementType = 'button'>({
             left: '-250%',
             borderRadius: '50%',
             background: `radial-gradient(circle, ${color}, transparent 15%)`,
-            zIndex: 0
+            zIndex: 0,
           }}
         />
-        
-        {/* Button Content with Infinite Scrolling Text */}
+
+        {/* Static Button Content */}
         <div
-            className="star-border-button"
-            style={{
+          className="star-border-button"
+          style={{
             position: 'relative',
             zIndex: 1,
             background: 'linear-gradient(to bottom, #000000, #1a1a1a)',
@@ -124,84 +111,24 @@ const StarBorder = <T extends React.ElementType = 'button'>({
             color: 'white',
             borderRadius: '12px',
             overflow: 'hidden',
-            width: '200px' 
-        }}
->
-          <div style={{ display: 'flex', overflow: 'hidden' }}>
-            <div 
-              className="scroll-text"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                whiteSpace: 'nowrap',
-                padding: '14px 20px',
-                gap: '16px'
-              }}
-            >
-              {/* Repeat text 8 times for seamless loop */}
-              {Array(8).fill(null).map((_, i) => (
-                <React.Fragment key={i}>
-                  <span style={{ 
-                    fontSize: '16px', 
-                    fontWeight: '700', 
-                    textTransform: 'uppercase', 
-                    letterSpacing: '0.05em',
-                    fontFamily: "'Orbitron', sans-serif"
-                  }}>
-                    {children}
-                  </span>
-                  <span 
-                    className="bullet-point"
-                    style={{ 
-                      fontSize: '20px', 
-                      fontFamily: "'Orbitron', sans-serif",
-                      filter: 'none',
-                      textShadow: 'none'
-                    }}
-                  >
-                    •
-                  </span>
-                </React.Fragment>
-              ))}
-            </div>
-            
-            {/* Duplicate for seamless loop */}
-            <div 
-              className="scroll-text"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                whiteSpace: 'nowrap',
-                padding: '14px 20px',
-                gap: '16px'
-              }}
-            >
-              {Array(8).fill(null).map((_, i) => (
-                <React.Fragment key={i}>
-                  <span style={{ 
-                    fontSize: '16px', 
-                    fontWeight: '700', 
-                    textTransform: 'uppercase', 
-                    letterSpacing: '0.05em',
-                    fontFamily: "'Orbitron', sans-serif"
-                  }}>
-                    {children}
-                  </span>
-                  <span 
-                    className="bullet-point"
-                    style={{ 
-                      fontSize: '20px', 
-                      fontFamily: "'Orbitron', sans-serif",
-                      filter: 'none',
-                      textShadow: 'none'
-                    }}
-                  >
-                    •
-                  </span>
-                </React.Fragment>
-              ))}
-            </div>
-          </div>
+            minWidth: '200px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '14px 20px',
+          }}
+        >
+          <span
+            style={{
+              fontSize: '16px',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+              fontFamily: "'Orbitron', sans-serif",
+            }}
+          >
+            {children}
+          </span>
         </div>
       </Component>
     </>
