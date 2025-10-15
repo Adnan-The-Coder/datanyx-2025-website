@@ -1,8 +1,8 @@
-"use client"
+'use client'
 
-import { useEffect, useMemo, useState, useRef } from "react"
-import WireframeSphere from "./three/wireframe-sphere"
-import StarBorder from "@/components/ui/StarBorder_button"
+import { useEffect, useMemo, useState, useRef } from 'react'
+import StarBorder from '@/components/ui/StarBorder_button'
+// import WireframeSphere from './three/wireframe-sphere'
 
 function useCountdown(targetISO: string) {
   const target = useMemo(() => new Date(targetISO).getTime(), [targetISO])
@@ -24,126 +24,211 @@ function useCountdown(targetISO: string) {
   return { d, h, m, s, done: clamp <= 0, isClient }
 }
 
+function TimeBlock({ label, value }: { label: string; value: number }) {
+  const v = String(value).padStart(2, '0')
+  return (
+    <div className="grid grid-cols-1 text-center">
+      <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground tabular-nums">
+        {v}
+      </span>
+      <span className="text-[11px] sm:text-xs md:text-sm text-muted-foreground">
+        {label}
+      </span>
+    </div>
+  )
+}
+
 export function HeroSection() {
-  const { d, h, m, s, done, isClient } = useCountdown("2025-11-22T10:00:00Z")
+  const { d, h, m, s, done, isClient } = useCountdown('2025-11-22T10:00:00Z')
   const sphereRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    let rafId: number
-    let currentScrollY = 0
-    let targetScrollY = 0
-    const lerp = (start: number, end: number, factor: number) => start + (end - start) * factor
-    
+    let rafId = 0 as number
+    let currentScrollY = window.scrollY
+    let targetScrollY = window.scrollY
+
+    const lerp = (start: number, end: number, factor: number) =>
+      start + (end - start) * factor
+
     const updateScroll = () => {
       currentScrollY = lerp(currentScrollY, targetScrollY, 0.1)
-      
+
       const halfViewportHeight = window.innerHeight / 2
       const scrollProgress = Math.min(currentScrollY / halfViewportHeight, 1)
-      
+
       const easeOutQuart = (t: number) => 1 - Math.pow(1 - t, 4)
       const smoothProgress = easeOutQuart(scrollProgress)
-      
+
       const sphereTransformY = smoothProgress * -100
       const sphereOpacity = 1 - smoothProgress
-      
+
       if (sphereRef.current) {
         sphereRef.current.style.transform = `translate3d(0, ${sphereTransformY}vh, 0)`
-        sphereRef.current.style.opacity = sphereOpacity.toString()
+        sphereRef.current.style.opacity = String(sphereOpacity)
       }
-      
+
       if (contentRef.current) {
         contentRef.current.style.transform = `translate3d(-50%, calc(-50% + ${sphereTransformY}vh), 0)`
-        contentRef.current.style.opacity = sphereOpacity.toString()
+        contentRef.current.style.opacity = String(sphereOpacity)
       }
-      
+
       if (bottomRef.current) {
-        bottomRef.current.style.opacity = smoothProgress.toString()
+        if (scrollProgress > 0) bottomRef.current.style.visibility = 'visible'
+        bottomRef.current.style.opacity = String(smoothProgress)
         bottomRef.current.style.transform = `translate3d(0, ${(1 - smoothProgress) * 20}px, 0)`
-        bottomRef.current.style.visibility = scrollProgress > 0 ? 'visible' : 'hidden'
       }
-      
+
       if (Math.abs(targetScrollY - currentScrollY) > 0.1 || scrollProgress < 1) {
         rafId = requestAnimationFrame(updateScroll)
       } else {
         rafId = 0
       }
     }
-    
+
     const handleScroll = () => {
       targetScrollY = window.scrollY
-      if (!rafId) {
-        rafId = requestAnimationFrame(updateScroll)
-      }
+      if (!rafId) rafId = requestAnimationFrame(updateScroll)
     }
-    
-    targetScrollY = window.scrollY
-    currentScrollY = window.scrollY
-    
+
+    // Kick off one frame and attach listener
     rafId = requestAnimationFrame(updateScroll)
-    
     window.addEventListener('scroll', handleScroll, { passive: true })
-    
+
     return () => {
       window.removeEventListener('scroll', handleScroll)
-      if (rafId) {
-        cancelAnimationFrame(rafId)
-      }
+      if (rafId) cancelAnimationFrame(rafId)
     }
   }, [])
 
   return (
-    <section 
-      id="home" 
-      aria-labelledby="datanyx-hero-title" 
+    <section
+      id="home"
+      aria-labelledby="datanyx-hero-title"
       className="relative w-full py-24 md:py-36 overflow-hidden min-h-screen"
     >
       <style jsx>{`
         .logo-image {
-          width: 98vw;
-          max-width: 98vw;
+          width: 82vw;         /* larger on mobile */
+          max-width: 560px;    /* sensible cap */
+          min-width: 260px;    /* ensure visibility on very small screens */
           height: auto;
           object-fit: contain;
-          filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.3));
+          filter: drop-shadow(0 0 24px rgba(255, 255, 255, 0.3));
         }
-        
-        @media (min-width: 1024px) {
+
+        @media (min-width: 640px) { /* sm */
           .logo-image {
-            width: 65vw;
-            max-width: 1800px;
+            width: 72vw;
+            max-width: 640px;
           }
         }
-        
-        @media (min-width: 1920px) {
+
+        @media (min-width: 768px) { /* md */
           .logo-image {
-            width: 50vw;
-            max-width: 2000px;
+            width: 60vw;
+            max-width: 760px;
+          }
+        }
+
+        @media (min-width: 1024px) { /* lg */
+          .logo-image {
+            width: 42vw;
+            max-width: 850px;
+          }
+        }
+
+        @media (min-width: 1536px) { /* 2xl */
+          .logo-image {
+            width: 34vw;
+            max-width: 1000px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .hero-content {
+            top: 50% !important; /* bring content slightly higher on tiny phones */
           }
         }
       `}</style>
 
-      {/* Logo + Button Container - Animates Together */}
-      <div 
+      {/* Wireframe Sphere placeholder with correct initial paint */}
+      <div
+        ref={sphereRef}
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          zIndex: 2,
+          transform: 'translate3d(0, 0, 0)',   // default so no flash
+          opacity: 1,                           // default so no flash
+          willChange: 'transform, opacity',
+          backfaceVisibility: 'hidden',
+          pointerEvents: 'none',
+        }}
+      >
+        {/* <WireframeSphere /> */}
+      </div>
+
+      {/* Logo + Countdown + Button - with initial centered transform */}
+      <div
         ref={contentRef}
-        className="fixed"
-        style={{ 
+        className="fixed hero-content"
+        style={{
           zIndex: 600,
-          top: '50%',
+          top: '52%',                            // slightly higher default
           left: '50%',
+          transform: 'translate3d(-50%, -50%, 0)', // default so no flash
+          opacity: 1,                               // default
           willChange: 'transform, opacity',
           backfaceVisibility: 'hidden',
         }}
       >
-        <div className="flex flex-col items-center gap-8 md:gap-12">
+        <div className="flex flex-col items-center gap-6 md:gap-8">
           {/* Logo */}
-          <img 
-            src="/assets/datanyx-logo.png"
+          <img
+            src="/assets/DATANYX'25 LOGO.png"
             alt="DATANYX Logo"
             className="logo-image"
           />
-          
-          {/* StarBorder Button */}
+
+          {/* Countdown Timer Below Logo */}
+          <div
+            aria-label="Event countdown"
+            className="inline-flex items-center justify-center gap-3 sm:gap-3 rounded-xl border border-border/60 bg-background/60 px-4 sm:px-5 md:px-6 py-2.5 sm:py-3.5 backdrop-blur"
+            style={{ filter: 'drop-shadow(0 0 10px rgba(255, 255, 255, 0.2))' }}
+          >
+            {!isClient ? (
+              <span className="text-sm sm:text-base md:text-lg text-foreground font-medium">
+                Loading...
+              </span>
+            ) : done ? (
+              <span className="text-sm sm:text-base md:text-lg text-foreground font-medium">
+                Hackathon is live now!
+              </span>
+            ) : (
+              <>
+                <TimeBlock label="Days" value={d} />
+                <span aria-hidden="true" className="text-lg sm:text-xl md:text-2xl text-muted-foreground">
+                  :
+                </span>
+                <TimeBlock label="Hours" value={h} />
+                <span aria-hidden="true" className="text-lg sm:text-xl md:text-2xl text-muted-foreground">
+                  :
+                </span>
+                <TimeBlock label="Minutes" value={m} />
+                <span aria-hidden="true" className="text-lg sm:text-xl md:text-2xl text-muted-foreground">
+                  :
+                </span>
+                <TimeBlock label="Seconds" value={s} />
+              </>
+            )}
+          </div>
+
+          {/* Register Now Button */}
           <div className="pointer-events-auto">
             <StarBorder
               as="a"
@@ -152,7 +237,6 @@ export function HeroSection() {
               rel="noopener noreferrer"
               color="white"
               speed="6s"
-              textSpeed="10s"
               className="cursor-pointer"
               style={{ textDecoration: 'none' }}
             >
@@ -162,18 +246,17 @@ export function HeroSection() {
         </div>
       </div>
 
-      <div 
+      <div
         ref={bottomRef}
-        className="container mx-auto px-4 text-center" 
-        style={{ 
+        className="container mx-auto px-4 text-center"
+        style={{
           position: 'relative',
           zIndex: 20,
           willChange: 'transform, opacity',
           backfaceVisibility: 'hidden',
-          visibility: 'hidden'
+          visibility: 'hidden',
         }}
-      >
-      </div>
+      />
     </section>
   )
 }
