@@ -175,3 +175,13 @@ html, body {
     display: none !important;
   }
 }
+@layer utilities {
+  .scroller {
+    --animation-duration: 80s;
+    --animation-direction: forwards;
+  }
+  
+  .animate-scroll {
+    animation-direction: var(--animation-direction);
+  }
+}
