@@ -39,7 +39,7 @@ export const InfiniteMovingCards = ({
 const InfiniteMovingRow = ({
   items,
   direction = "left",
-  speed = "fast",
+  speed = "slow",
   pauseOnHover,
 }: {
   items: { src: string; alt?: string }[];
