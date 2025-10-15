@@ -20,13 +20,20 @@ export function AboutSection() {
       </div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="flex items-center mb-8">
-          <div className="h-1 w-8 bg-purple-400 mr-4 rounded-full"></div>
-          <h2 id="about-title" className="text-3xl md:text-4xl font-bold text-balance text-foreground bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent" style={{fontFamily: "Space Age, monospace"}}>
-            About the Event
-          </h2>
-          <div className="h-1 flex-grow bg-gradient-to-r from-purple-400 to-transparent ml-4 rounded-full"></div>
-        </div>
+        <h1
+          className="text-center text-white font-black tracking-wide mb-8 sm:mb-10"
+          style={{
+            fontFamily: 'Space Age, monospace',
+            fontSize: 'clamp(2rem, 4vw, 3rem)',
+            lineHeight: 1.1,
+            color: '#fff',
+            textShadow: 'none',
+            WebkitTextFillColor: 'initial',
+            background: 'none',
+          }}
+        >
+          ABOUT THE EVENT
+        </h1>
         
         <div className="backdrop-blur-sm bg-black/10 rounded-xl p-6 border border-purple-500/20 shadow-lg shadow-purple-500/5">
           <div className="space-y-4 max-w-7xl" style={{fontFamily: "Orbitron, monospace"}}>

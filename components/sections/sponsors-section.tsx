@@ -23,13 +23,20 @@ export function SponsorsSection() {
       </div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="flex items-center mb-8">
-          <div className="h-1 w-8 bg-pink-400 mr-4 rounded-full"></div>
-          <h2 id="sponsors-title" className="text-3xl md:text-4xl font-bold text-balance text-foreground bg-gradient-to-r from-pink-400 to-fuchsia-400 bg-clip-text text-transparent" style={{fontFamily: 'Space Age, monospace'}}>
-            Sponsors
-          </h2>
-          <div className="h-1 flex-grow bg-gradient-to-r from-pink-400 to-transparent ml-4 rounded-full"></div>
-        </div>
+        <h1
+          className="text-center text-white font-black tracking-wide mb-8 sm:mb-10"
+          style={{
+            fontFamily: 'Space Age, monospace',
+            fontSize: 'clamp(2rem, 4vw, 3rem)',
+            lineHeight: 1.1,
+            color: '#fff',
+            textShadow: 'none',
+            WebkitTextFillColor: 'initial',
+            background: 'none',
+          }}
+        >
+          SPONSORS
+        </h1>
         
         <div className="backdrop-blur-sm bg-black/20 rounded-xl p-6 border border-pink-500/20 shadow-lg shadow-pink-500/5">
           {/* Group sponsors by tier */}
