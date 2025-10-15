@@ -185,3 +185,11 @@ html, body {
     animation-direction: var(--animation-direction);
   }
 }
+/* Hide app until client JS toggles a flag */
+html:not([data-mounted="true"]) body > * {
+  opacity: 0 !important;
+}
+html[data-mounted="true"] body > * {
+  opacity: 1;
+  transition: opacity 200ms ease;
+}

@@ -16,7 +16,7 @@ type Organizer = {
 const organizers: Organizer[] = [
   {
     name: 'IEEE SMC',
-    image: '/assets/SMC_datanyx.png',
+    image: '/assets/smc_logo.png',
     socials: {
       linkedin: 'https://linkedin.com/',
       instagram: 'https://instagram.com/',
@@ -24,7 +24,7 @@ const organizers: Organizer[] = [
   },
   {
     name: 'AWS Club',
-    image: '/assets/AWS_club_datanyx.png',
+    image: '/assets/aws_logo.png',
     socials: {
       linkedin: 'https://linkedin.com/',
       instagram: 'https://instagram.com/',
