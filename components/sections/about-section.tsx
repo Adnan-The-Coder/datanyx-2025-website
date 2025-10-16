@@ -218,7 +218,7 @@ export function AboutSection() {
         `}</style>
       </div>
 
-      <About />
+      {/* <About /> */}
     </section>
   )
 }

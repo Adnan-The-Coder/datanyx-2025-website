@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import Background from '@/components/ui/background'
 import './globals.css'
+import {ReactLenis} from "@/utils/lenis"
+import { SmoothCursor } from "@/components/ui/cursor";
 
 export const metadata: Metadata = {
   title: 'Datanyx 2025 - 24-Hour Datathon',
@@ -13,6 +15,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
+      <ReactLenis root>
       <head>
 
         <style
@@ -43,8 +46,23 @@ export default function RootLayout({
       </head>
       <body className="relative">
         <Background />
+        <SmoothCursor
+          size={20}
+          color="black"
+          showTrail={false}
+          trailLength={8}
+          magneticDistance={60}
+          magneticElements="[data-magnetic]"
+          springConfig={{
+            damping: 50,
+            stiffness: 450,
+            mass: 0.8,
+            restDelta: 0.001
+          }}
+        />
         {children}
       </body>
+      </ReactLenis>
     </html>
   )
 }

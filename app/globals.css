@@ -15,6 +15,7 @@
 /* Prevent horizontal scroll on all pages */
 html, body {
   max-width: 100%;
+  cursor: pointer;
   overflow-x: hidden;
 }
 
@@ -192,4 +193,22 @@ html:not([data-mounted="true"]) body > * {
 html[data-mounted="true"] body > * {
   opacity: 1;
   transition: opacity 200ms ease;
+}
+
+
+html.lenis,
+html.lenis body{
+  height : auto;
+}
+.lenis.lenis-smooth{
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth[data-lenis-prevent]{
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped{
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe{
+  pointer-events: none;
 }

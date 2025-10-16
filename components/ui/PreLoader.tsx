@@ -1,13 +1,12 @@
 'use client'
-
 import { useEffect, useRef, useState } from 'react'
 
 export default function FullscreenPreloader({
-  logoSrc = "/assets/DATANYX'25 LOGO.png",
+  src = "/assets/datanyx25logo.png",
   durationMs = 2800,
   onDone,
 }: {
-  logoSrc?: string
+  src?: string
   durationMs?: number
   onDone: () => void
 }) {
@@ -20,16 +19,15 @@ export default function FullscreenPreloader({
     const start = performance.now()
     const tick = (t: number) => {
       const p = Math.min((t - start) / durationMs, 1)
-      const eased = 1 - Math.pow(1 - p, 3) // easeOutCubic
+      const eased = 1 - Math.pow(1 - p, 3)
       setPct(Math.round(eased * 100))
       if (p < 1) {
         rafRef.current = requestAnimationFrame(tick)
       } else {
         setPhase('fading')
-        // schedule completion after fade
         fadeTimeoutRef.current = window.setTimeout(() => {
           onDone()
-        }, 320)
+        }, 600)
       }
     }
     rafRef.current = requestAnimationFrame(tick)
@@ -44,29 +42,42 @@ export default function FullscreenPreloader({
       className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black"
       style={{
         opacity: phase === 'fading' ? 0 : 1,
-        transition: 'opacity 320ms ease',
-        willChange: 'opacity',
+        transition: 'opacity 600ms ease-out',
       }}
     >
       <style jsx>{`
-        .pre-logo {
-          width: clamp(240px, 62vw, 760px);
+        @keyframes fadeInScale {
+          from {
+            opacity: 0;
+            transform: scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        
+        .logo {
+          width: clamp(200px, 50vw, 600px);
           height: auto;
-          object-fit: contain;
-          filter: drop-shadow(0 0 24px rgba(255, 255, 255, 0.25));
+          animation: fadeInScale 800ms ease-out;
+        }
+        
+        .progress-container {
+          animation: fadeInScale 800ms ease-out 200ms backwards;
         }
       `}</style>
 
-      <img src={logoSrc} alt="DATANYX Logo" className="pre-logo" />
+      <img src={src} alt="Logo" className="logo mb-16" />
 
-      <div className="mt-8 w-[72vw] max-w-[520px] min-w-[240px]">
-        <div className="h-2 rounded-full bg-white/12 overflow-hidden">
+      <div className="progress-container w-[min(400px,80vw)]">
+        <div className="h-0.5 bg-zinc-800 rounded-full overflow-hidden">
           <div
-            className="h-full rounded-full bg-white"
-            style={{ width: `${pct}%`, transition: 'width 100ms linear' }}
+            className="h-full bg-white rounded-full transition-all duration-200 ease-out"
+            style={{ width: `${pct}%` }}
           />
         </div>
-        <div className="mt-2 text-center text-sm sm:text-base text-white/85 font-medium tabular-nums">
+        <div className="mt-4 text-center text-white/70 text-sm font-light tracking-wide tabular-nums">
           {pct}%
         </div>
       </div>
