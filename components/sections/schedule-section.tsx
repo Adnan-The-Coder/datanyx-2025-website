@@ -371,22 +371,22 @@ export default function ScheduleSection() {
             </div>
 
             {/* Labels */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-10 md:-translate-y-12 hidden lg:block z-30">
+            {/* <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-10 md:-translate-y-12 hidden lg:block z-30">
               <div
                 className="text-xs md:text-sm font-bold px-3 md:px-4 py-1 md:py-1.5 rounded-full shadow-lg"
                 style={{ fontFamily: 'Orbitron, monospace', backgroundColor: '#ffffff', color: '#000', boxShadow: '0 0 20px rgba(255,255,255,0.5)' }}
               >
                 START
               </div>
-            </div>
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-10 md:translate-y-12 hidden lg:block z-30">
+            </div> */}
+            {/* <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-10 md:translate-y-12 hidden lg:block z-30">
               <div
                 className="text-xs md:text-sm font-bold px-3 md:px-4 py-1 md:py-1.5 rounded-full shadow-lg"
                 style={{ fontFamily: 'Orbitron, monospace', backgroundColor: '#ffffff', color: '#000', boxShadow: '0 0 20px rgba(255,255,255,0.5)' }}
               >
                 END
               </div>
-            </div>
+            </div> */}
 
             {/* Events */}
             <div>

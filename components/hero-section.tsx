@@ -190,7 +190,7 @@ export function HeroSection() {
         <div className="flex flex-col items-center gap-6 md:gap-8">
           {/* Logo */}
           <img
-            src="/assets/DATANYX'25 LOGO.png"
+            src="/assets/datanyx25logo.png"
             alt="DATANYX Logo"
             className="logo-image"
           />
