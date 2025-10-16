@@ -16,18 +16,19 @@ type Organizer = {
 const organizers: Organizer[] = [
   {
     name: 'IEEE SMC',
-    image: '/assets/smc_logo.png',
+    image: '/assets/smc-logo.png',
     socials: {
-      linkedin: 'https://linkedin.com/',
-      instagram: 'https://instagram.com/',
+      linkedin: 'https://www.linkedin.com/company/ieeesmcmjcet/posts/?feedView=all',
+      instagram: ' https://www.instagram.com/ieeesmcmjcet?utm_source=ig_web_button_share_sheet&igsh=NzRncGoxZHJhcndn',
+
     },
   },
   {
     name: 'AWS Club',
     image: '/assets/aws_logo.png',
     socials: {
-      linkedin: 'https://linkedin.com/',
-      instagram: 'https://instagram.com/',
+      linkedin: 'https://www.linkedin.com/company/aws-cloud-club-mjcet/posts/?feedView=all',
+      instagram: ' https://www.instagram.com/awsclub.mjcet?utm_source=ig_web_button_share_sheet&igsh=MWhmZ2FlbTJkYXRrYw==',
     },
   },
 ]

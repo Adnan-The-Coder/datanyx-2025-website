@@ -39,7 +39,9 @@ function TimeBlock({ label, value }: { label: string; value: number }) {
 }
 
 export function HeroSection() {
-  const { d, h, m, s, done, isClient } = useCountdown('2025-11-22T10:00:00Z')
+  // 🔹 Countdown to registration deadline: November 14, 2025, 11:59 PM IST (18:29:59 UTC)
+  const { d, h, m, s, done, isClient } = useCountdown('2025-11-14T18:29:59Z')
+
   const sphereRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
@@ -54,13 +56,10 @@ export function HeroSection() {
 
     const updateScroll = () => {
       currentScrollY = lerp(currentScrollY, targetScrollY, 0.1)
-
       const halfViewportHeight = window.innerHeight / 2
       const scrollProgress = Math.min(currentScrollY / halfViewportHeight, 1)
-
       const easeOutQuart = (t: number) => 1 - Math.pow(1 - t, 4)
       const smoothProgress = easeOutQuart(scrollProgress)
-
       const sphereTransformY = smoothProgress * -100
       const sphereOpacity = 1 - smoothProgress
 
@@ -92,7 +91,6 @@ export function HeroSection() {
       if (!rafId) rafId = requestAnimationFrame(updateScroll)
     }
 
-    // Kick off one frame and attach listener
     rafId = requestAnimationFrame(updateScroll)
     window.addEventListener('scroll', handleScroll, { passive: true })
 
@@ -110,36 +108,36 @@ export function HeroSection() {
     >
       <style jsx>{`
         .logo-image {
-          width: 82vw;         /* larger on mobile */
-          max-width: 560px;    /* sensible cap */
-          min-width: 260px;    /* ensure visibility on very small screens */
+          width: 82vw;
+          max-width: 560px;
+          min-width: 260px;
           height: auto;
           object-fit: contain;
           filter: drop-shadow(0 0 24px rgba(255, 255, 255, 0.3));
         }
 
-        @media (min-width: 640px) { /* sm */
+        @media (min-width: 640px) {
           .logo-image {
             width: 72vw;
             max-width: 640px;
           }
         }
 
-        @media (min-width: 768px) { /* md */
+        @media (min-width: 768px) {
           .logo-image {
             width: 60vw;
             max-width: 760px;
           }
         }
 
-        @media (min-width: 1024px) { /* lg */
+        @media (min-width: 1024px) {
           .logo-image {
             width: 42vw;
             max-width: 850px;
           }
         }
 
-        @media (min-width: 1536px) { /* 2xl */
+        @media (min-width: 1536px) {
           .logo-image {
             width: 34vw;
             max-width: 1000px;
@@ -148,12 +146,12 @@ export function HeroSection() {
 
         @media (max-width: 480px) {
           .hero-content {
-            top: 50% !important; /* bring content slightly higher on tiny phones */
+            top: 50% !important;
           }
         }
       `}</style>
 
-      {/* Wireframe Sphere placeholder with correct initial paint */}
+      {/* Background Sphere */}
       <div
         ref={sphereRef}
         style={{
@@ -163,8 +161,8 @@ export function HeroSection() {
           width: '100vw',
           height: '100vh',
           zIndex: 2,
-          transform: 'translate3d(0, 0, 0)',   // default so no flash
-          opacity: 1,                           // default so no flash
+          transform: 'translate3d(0, 0, 0)',
+          opacity: 1,
           willChange: 'transform, opacity',
           backfaceVisibility: 'hidden',
           pointerEvents: 'none',
@@ -173,16 +171,16 @@ export function HeroSection() {
         {/* <WireframeSphere /> */}
       </div>
 
-      {/* Logo + Countdown + Button - with initial centered transform */}
+      {/* Centered Logo + Countdown + Button */}
       <div
         ref={contentRef}
         className="fixed hero-content"
         style={{
           zIndex: 600,
-          top: '52%',                            // slightly higher default
+          top: '52%',
           left: '50%',
-          transform: 'translate3d(-50%, -50%, 0)', // default so no flash
-          opacity: 1,                               // default
+          transform: 'translate3d(-50%, -50%, 0)',
+          opacity: 1,
           willChange: 'transform, opacity',
           backfaceVisibility: 'hidden',
         }}
@@ -195,54 +193,59 @@ export function HeroSection() {
             className="logo-image"
           />
 
-          {/* Countdown Timer Below Logo */}
-          <div
-            aria-label="Event countdown"
-            className="inline-flex items-center justify-center gap-3 sm:gap-3 rounded-xl border border-border/60 bg-background/60 px-4 sm:px-5 md:px-6 py-2.5 sm:py-3.5 backdrop-blur"
-            style={{ filter: 'drop-shadow(0 0 10px rgba(255, 255, 255, 0.2))' }}
-          >
-            {!isClient ? (
-              <span className="text-sm sm:text-base md:text-lg text-foreground font-medium">
-                Loading...
-              </span>
-            ) : done ? (
-              <span className="text-sm sm:text-base md:text-lg text-foreground font-medium">
-                Hackathon is live now!
-              </span>
-            ) : (
-              <>
-                <TimeBlock label="Days" value={d} />
-                <span aria-hidden="true" className="text-lg sm:text-xl md:text-2xl text-muted-foreground">
-                  :
-                </span>
-                <TimeBlock label="Hours" value={h} />
-                <span aria-hidden="true" className="text-lg sm:text-xl md:text-2xl text-muted-foreground">
-                  :
-                </span>
-                <TimeBlock label="Minutes" value={m} />
-                <span aria-hidden="true" className="text-lg sm:text-xl md:text-2xl text-muted-foreground">
-                  :
-                </span>
-                <TimeBlock label="Seconds" value={s} />
-              </>
+          {/* Countdown */}
+          <div className="flex flex-col items-center gap-2">
+            {!done && (
+              <p className="text-sm sm:text-base md:text-lg font-medium text-muted-foreground uppercase tracking-wide"
+              style={{ fontFamily: 'Orbitron, monospace' }}>
+                Time left to register
+              </p>
             )}
+
+            <div
+              aria-label="Registration countdown"
+              className="inline-flex items-center justify-center gap-3 sm:gap-3 rounded-xl border border-border/60 bg-background/60 px-4 sm:px-5 md:px-6 py-2.5 sm:py-3.5 backdrop-blur"
+              style={{ filter: 'drop-shadow(0 0 10px rgba(255, 255, 255, 0.2))' }}
+            >
+              {!isClient ? (
+                <span className="text-sm sm:text-base md:text-lg text-foreground font-medium">
+                  Loading...
+                </span>
+              ) : done ? (
+                <span className="text-sm sm:text-base md:text-lg text-foreground font-medium">
+                  Registrations are now closed!
+                </span>
+              ) : (
+                <>
+                  <TimeBlock label="Days" value={d} />
+                  <span aria-hidden="true" className="text-lg sm:text-xl md:text-2xl text-muted-foreground">:</span>
+                  <TimeBlock label="Hours" value={h} />
+                  <span aria-hidden="true" className="text-lg sm:text-xl md:text-2xl text-muted-foreground">:</span>
+                  <TimeBlock label="Minutes" value={m} />
+                  <span aria-hidden="true" className="text-lg sm:text-xl md:text-2xl text-muted-foreground">:</span>
+                  <TimeBlock label="Seconds" value={s} />
+                </>
+              )}
+            </div>
           </div>
 
-          {/* Register Now Button */}
-          <div className="pointer-events-auto">
-            <StarBorder
-              as="a"
-              href="https://unstop.com/hackathons/datanyx-muffakham-jah-college-of-engineering-technology-1188761"
-              target="_blank"
-              rel="noopener noreferrer"
-              color="white"
-              speed="6s"
-              className="cursor-pointer"
-              style={{ textDecoration: 'none' }}
-            >
-              Register Now
-            </StarBorder>
-          </div>
+          {/* Register Button */}
+          {!done && (
+            <div className="pointer-events-auto">
+              <StarBorder
+                as="a"
+                href="https://unstop.com/hackathons/datanyx-muffakham-jah-college-of-engineering-technology-1188761"
+                target="_blank"
+                rel="noopener noreferrer"
+                color="white"
+                speed="6s"
+                className="cursor-pointer"
+                style={{ textDecoration: 'none' }}
+              >
+                Register Now
+              </StarBorder>
+            </div>
+          )}
         </div>
       </div>
 
