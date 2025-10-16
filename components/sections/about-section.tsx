@@ -1,3 +1,4 @@
+
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
@@ -161,11 +162,13 @@ export function AboutSection() {
             </p>
           </div>
 
-          <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
             {stats.map((s, i) => {
               const { prefix, num, suffix } = parseNumeric(s.value)
               const isNumeric = /\d/.test(s.value)
               const isPrize = s.label.toLowerCase().includes('prize')
+              const isVenue = s.label.toLowerCase().includes('venue')
+              const isMode = s.label.toLowerCase().includes('mode')
               const target = isPrize ? 100000 : num // force 100k for prize
               const effectivePrefix = isPrize ? '₹' : prefix
               const effectiveSuffix = suffix || (isPrize ? '+' : '')
@@ -173,7 +176,9 @@ export function AboutSection() {
               return (
                 <div
                   key={s.label}
-                  className="rounded-xl border border-white/10 bg-black/10 p-4 text-center backdrop-blur-sm hover:border-blue-500/30 transition-colors"
+                  className={`rounded-xl border border-white/10 bg-black/10 p-3 sm:p-4 text-center backdrop-blur-sm hover:border-blue-500/30 transition-colors ${
+                    (isVenue || isMode) ? 'col-span-2 sm:col-span-1' : ''
+                  }`}
                   style={{
                     boxShadow: '0 0 15px rgba(59, 130, 246, 0.10)', // blue-500
                     animation: `pulse 3s infinite ${i * 0.5}s`,
@@ -181,7 +186,7 @@ export function AboutSection() {
                 >
                   {isNumeric ? (
                     <div
-                      className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-blue-400 bg-clip-text text-transparent"
+                      className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 to-blue-400 bg-clip-text text-transparent"
                       style={{ fontFamily: 'Orbitron, monospace' }}
                     >
                       <CountUp
@@ -195,13 +200,17 @@ export function AboutSection() {
                     </div>
                   ) : (
                     <div
-                      className="text-2xl font-bold text-blue-300"
+                      className={`font-bold text-blue-300 ${
+                        isVenue ? 'text-sm sm:text-xl leading-tight' : 
+                        isMode ? 'text-lg sm:text-2xl' : 
+                        'text-xl sm:text-2xl'
+                      }`}
                       style={{ fontFamily: 'Orbitron, monospace' }}
                     >
                       {s.value}
                     </div>
                   )}
-                  <div className="text-xs text-gray-400" style={{ fontFamily: 'Orbitron, monospace' }}>
+                  <div className="text-xs text-gray-400 mt-1" style={{ fontFamily: 'Orbitron, monospace' }}>
                     {s.label}
                   </div>
                 </div>
@@ -217,7 +226,6 @@ export function AboutSection() {
           }
         `}</style>
       </div>
-
       {/* <About /> */}
     </section>
   )
