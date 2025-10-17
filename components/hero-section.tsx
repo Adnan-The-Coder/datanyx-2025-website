@@ -255,42 +255,39 @@ export function HeroSection() {
               >
                 Register Now
               </StarBorder>
-              {/* Devfolio Apply Button (renders via Devfolio SDK) */}
-              <div className="mt-4">
+              {/* Devfolio Apply Button */}
+              <div className="mt-4 flex justify-center" style={{ position: 'relative', zIndex: 1000 }}>
                 <a
-                  id="devfolio-apply"
-                  className="apply-button apply-with-devfolio devfolio-apply visible-apply inline-flex items-center gap-3 rounded-md bg-[#263238] text-white font-semibold hover:bg-[#1f2a2f] shadow-md mx-auto z-50"
-                  href="https://apply.devfolio.co/datanyx-2025"
+                  href="https://devfolio.co/datanyx-2025"
                   target="_blank"
                   rel="noopener noreferrer"
-                  data-hackathon-id="datanyx-2025"
-                  data-hackathon="datanyx-2025"
+                  className="apply-button inline-flex items-center gap-3 rounded-md px-6 py-3 text-white font-semibold shadow-lg transition-all duration-200 hover:shadow-xl"
                   data-hackathon-slug="datanyx-2025"
-                  data-team-size="4"
-                  role="button"
-                  aria-label="Apply with Devfolio"
-                  style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', minWidth: '180px', padding: '8px 22px' }}
+                  data-button-theme="dark"
+                  style={{ 
+                    textDecoration: 'none', 
+                    minWidth: '250px', 
+                    justifyContent: 'center',
+                    backgroundColor: '#263238',
+                    position: 'relative',
+                    display: 'inline-flex'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#1f2a2f'}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#263238'}
                 >
-                  {/* Left icon: white rounded square with dark 'D' */}
-                  <span className="flex items-center justify-center w-6 h-6 rounded-sm bg-white">
-                    <span className="text-[#263238] font-bold text-sm">D</span>
+                  <span style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    width: '24px', 
+                    height: '24px', 
+                    borderRadius: '4px', 
+                    backgroundColor: 'white' 
+                  }}>
+                    <span style={{ color: '#263238', fontWeight: 'bold', fontSize: '14px' }}>D</span>
                   </span>
                   <span>Apply with Devfolio</span>
                 </a>
-                {/* Static fallback for crawlers / verifiers that do not execute JS */}
-                <noscript>
-                  <div style={{ display: 'flex', justifyContent: 'center', marginTop: '8px' }}>
-                    <a
-                      className="apply-with-devfolio"
-                      href="https://apply.devfolio.co/datanyx-2025"
-                      data-hackathon-id="datanyx-2025"
-                      data-hackathon="datanyx-2025"
-                      style={{ display: 'inline-block', padding: '8px 24px', background: '#263238', color: '#fff', borderRadius: 6, textDecoration: 'none', fontWeight: 600 }}
-                    >
-                      Apply with Devfolio
-                    </a>
-                  </div>
-                </noscript>
               </div>
             </div>
           )}
