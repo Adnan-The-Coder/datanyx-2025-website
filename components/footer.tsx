@@ -38,8 +38,9 @@ export function Footer() {
               className="text-gray-300 mb-4 leading-relaxed max-w-md mx-auto md:mx-0"
               style={{ fontFamily: "Orbitron, monospace" }}
             >
-              Telangana's flagship 24-hour datathon — explore the power of data science, 
-              machine learning, and innovation that shapes the future.
+              Telangana’s flagship 24-hour datathon returns — bigger, bolder, and more transformative.
+Dive into the world of data science, AI, and cloud innovation where ideas become impact.
+Collaborate and create breakthroughs that shape the next era of technology — this is DATANYX’25.
             </p>
           </div>
 

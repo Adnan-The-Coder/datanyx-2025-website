@@ -37,7 +37,7 @@ export function PrizesSection() {
               <Icon className="absolute h-6 w-6 -bottom-3 -right-3 text-yellow-400" />
 
               <div className="w-full h-full flex flex-col items-center justify-center relative">
-                <EvervaultCard text="🥇" className="w-full flex-1" />
+                <EvervaultCard text="🏆" className="w-full flex-1" />
 
                 {/* Text overlay inside the card */}
                 <div className="absolute bottom-6 left-0 right-0 text-center z-20">
