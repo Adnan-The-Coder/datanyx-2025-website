@@ -2,7 +2,8 @@
 
 import { motion, useSpring } from "framer-motion";
 import { FC, JSX, useEffect, useRef, useState } from "react";
-// Utility function 'cn' (classnames) - implemented directly to resolve import error
+
+// Utility function 'cn' (classnames)
 function cn(...inputs: (string | undefined | null | boolean)[]) {
   return inputs.filter(Boolean).join(" ");
 }
@@ -39,71 +40,85 @@ export interface SmoothCursorProps {
   disabled?: boolean;
 }
 
+// Responsive large screen hook (≥1024px)
+function useIsLargeScreen(breakpoint: number = 1024): boolean {
+  const [isLarge, setIsLarge] = useState(
+    typeof window !== "undefined" ? window.innerWidth >= breakpoint : true
+  );
+  useEffect(() => {
+    function handleResize() {
+      setIsLarge(window.innerWidth >= breakpoint);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [breakpoint]);
+  return isLarge;
+}
+
+// Default SVG cursor as fallback
 const DefaultCursorSVG: FC<{ size?: number; color?: string; className?: string }> = ({
   size = 25,
   color = "black",
   className
-}) => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={size * 2}
-      height={size * 2.16}
-      viewBox="0 0 50 54"
-      fill="none"
-      className={cn("pointer-events-none", className)}
-    >
-      <g filter="url(#filter0_d_91_7928)">
-        <path
-          d="M42.6817 41.1495L27.5103 6.79925C26.7269 5.02557 24.2082 5.02558 23.3927 6.79925L7.59814 41.1495C6.75833 42.9759 8.52712 44.8902 10.4125 44.1954L24.3757 39.0496C24.8829 38.8627 25.4385 38.8627 25.9422 39.0496L39.8121 44.1954C41.6849 44.8902 43.4884 42.9759 42.6817 41.1495Z"
-          fill={color}
+}) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size * 2}
+    height={size * 2.16}
+    viewBox="0 0 50 54"
+    fill="none"
+    className={cn("pointer-events-none", className)}
+  >
+    <g filter="url(#filter0_d_91_7928)">
+      <path
+        d="M42.6817 41.1495L27.5103 6.79925C26.7269 5.02557 24.2082 5.02558 23.3927 6.79925L7.59814 41.1495C6.75833 42.9759 8.52712 44.8902 10.4125 44.1954L24.3757 39.0496C24.8829 38.8627 25.4385 38.8627 25.9422 39.0496L39.8121 44.1954C41.6849 44.8902 43.4884 42.9759 42.6817 41.1495Z"
+        fill={color}
+      />
+      <path
+        d="M43.7146 40.6933L28.5431 6.34306C27.3556 3.65428 23.5772 3.69516 22.3668 6.32755L6.57226 40.6778C5.3134 43.4156 7.97238 46.298 10.803 45.2549L24.7662 40.109C25.0221 40.0147 25.2999 40.0156 25.5494 40.1082L39.4193 45.254C42.2261 46.2953 44.9254 43.4347 43.7146 40.6933Z"
+        stroke="white"
+        strokeWidth={2.25825}
+      />
+    </g>
+    <defs>
+      <filter
+        id="filter0_d_91_7928"
+        x={0.602397}
+        y={0.952444}
+        width={49.0584}
+        height={52.428}
+        filterUnits="userSpaceOnUse"
+        colorInterpolationFilters="sRGB"
+      >
+        <feFlood floodOpacity={0} result="BackgroundImageFix" />
+        <feColorMatrix
+          in="SourceAlpha"
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          result="hardAlpha"
         />
-        <path
-          d="M43.7146 40.6933L28.5431 6.34306C27.3556 3.65428 23.5772 3.69516 22.3668 6.32755L6.57226 40.6778C5.3134 43.4156 7.97238 46.298 10.803 45.2549L24.7662 40.109C25.0221 40.0147 25.2999 40.0156 25.5494 40.1082L39.4193 45.254C42.2261 46.2953 44.9254 43.4347 43.7146 40.6933Z"
-          stroke="white"
-          strokeWidth={2.25825}
+        <feOffset dy={2.25825} />
+        <feGaussianBlur stdDeviation={2.25825} />
+        <feComposite in2="hardAlpha" operator="out" />
+        <feColorMatrix
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.08 0"
         />
-      </g>
-      <defs>
-        <filter
-          id="filter0_d_91_7928"
-          x={0.602397}
-          y={0.952444}
-          width={49.0584}
-          height={52.428}
-          filterUnits="userSpaceOnUse"
-          colorInterpolationFilters="sRGB"
-        >
-          <feFlood floodOpacity={0} result="BackgroundImageFix" />
-          <feColorMatrix
-            in="SourceAlpha"
-            type="matrix"
-            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-            result="hardAlpha"
-          />
-          <feOffset dy={2.25825} />
-          <feGaussianBlur stdDeviation={2.25825} />
-          <feComposite in2="hardAlpha" operator="out" />
-          <feColorMatrix
-            type="matrix"
-            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.08 0"
-          />
-          <feBlend
-            mode="normal"
-            in2="BackgroundImageFix"
-            result="effect1_dropShadow_91_7928"
-          />
-          <feBlend
-            mode="normal"
-            in="SourceGraphic"
-            in2="effect1_dropShadow_91_7928"
-            result="shape"
-          />
-        </filter>
-      </defs>
-    </svg>
-  );
-};
+        <feBlend
+          mode="normal"
+          in2="BackgroundImageFix"
+          result="effect1_dropShadow_91_7928"
+        />
+        <feBlend
+          mode="normal"
+          in="SourceGraphic"
+          in2="effect1_dropShadow_91_7928"
+          result="shape"
+        />
+      </filter>
+    </defs>
+  </svg>
+);
 
 export function SmoothCursor({
   cursor,
@@ -129,6 +144,7 @@ export function SmoothCursor({
   onCursorLeave,
   disabled = false,
 }: SmoothCursorProps) {
+  const isLargeScreen = useIsLargeScreen(1024);
   const [isMoving, setIsMoving] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [isClicking, setIsClicking] = useState(false);
@@ -158,25 +174,23 @@ export function SmoothCursor({
 
   useEffect(() => {
     if (disabled) return;
+    if (!isLargeScreen) return;
 
     const updateVelocity = (currentPos: Position) => {
       const currentTime = Date.now();
       const deltaTime = currentTime - lastUpdateTime.current;
-
       if (deltaTime > 0) {
         velocity.current = {
           x: (currentPos.x - lastMousePos.current.x) / deltaTime,
           y: (currentPos.y - lastMousePos.current.y) / deltaTime,
         };
       }
-
       lastUpdateTime.current = currentTime;
       lastMousePos.current = currentPos;
     };
 
     const updateTrail = (pos: Position) => {
       if (!showTrail) return;
-
       setTrail(function (prev) {
         var newTrail = [pos].concat(prev.slice(0, trailLength - 1));
         return newTrail;
@@ -185,16 +199,11 @@ export function SmoothCursor({
 
     const findMagneticElement = (x: number, y: number) => {
       const elements = document.querySelectorAll(magneticElements);
-
-      // Fix: Convert NodeListOf<Element> to an array for reliable iteration
       for (const element of Array.from(elements)) {
         const rect = element.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
-        const distance = Math.sqrt(
-          Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2)
-        );
-
+        const distance = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
         if (distance < magneticDistance) {
           return { x: centerX, y: centerY, distance };
         }
@@ -205,7 +214,6 @@ export function SmoothCursor({
     const smoothMouseMove = (e: MouseEvent) => {
       let currentPos = { x: e.clientX, y: e.clientY };
 
-      // Check for magnetic elements
       const magneticTarget = findMagneticElement(currentPos.x, currentPos.y);
       if (magneticTarget) {
         const strength = 1 - (magneticTarget.distance / magneticDistance);
@@ -219,7 +227,7 @@ export function SmoothCursor({
       updateTrail(currentPos);
 
       const speed = Math.sqrt(
-        Math.pow(velocity.current.x, 2) + Math.pow(velocity.current.y, 2),
+        Math.pow(velocity.current.x, 2) + Math.pow(velocity.current.y, 2)
       );
 
       cursorX.set(currentPos.x);
@@ -229,9 +237,7 @@ export function SmoothCursor({
 
       if (speed > 0.1 && rotateOnMove) {
         const currentAngle =
-          Math.atan2(velocity.current.y, velocity.current.x) * (180 / Math.PI) +
-          90;
-
+          Math.atan2(velocity.current.y, velocity.current.x) * (180 / Math.PI) + 90;
         let angleDiff = currentAngle - previousAngle.current;
         if (angleDiff > 180) angleDiff -= 360;
         if (angleDiff < -180) angleDiff += 360;
@@ -282,7 +288,6 @@ export function SmoothCursor({
     let rafId: number;
     const throttledMouseMove = function (e: MouseEvent) {
       if (rafId) return;
-
       rafId = requestAnimationFrame(function () {
         smoothMouseMove(e);
         rafId = 0;
@@ -320,14 +325,14 @@ export function SmoothCursor({
     magneticElements,
     onCursorMove,
     onCursorEnter,
-    onCursorLeave
+    onCursorLeave,
+    isLargeScreen
   ]);
 
-  if (disabled || !isVisible) return null;
+  if (!isLargeScreen || disabled || !isVisible) return null;
 
   return (
     <>
-      {/* Trail Effect */}
       {showTrail && trail.map(function (pos, index) {
         return (
           <motion.div
@@ -348,7 +353,6 @@ export function SmoothCursor({
         );
       })}
 
-      {/* Main Cursor */}
       <motion.div
         style={{
           position: "fixed",
@@ -361,7 +365,7 @@ export function SmoothCursor({
           zIndex: 10000,
           pointerEvents: "none",
           willChange: "transform",
-          filter: glowEffect ? "drop-shadow(0 0 10px " + color + "40)" : "none", // String concatenation
+          filter: glowEffect ? "drop-shadow(0 0 10px " + color + "40)" : "none",
         }}
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
