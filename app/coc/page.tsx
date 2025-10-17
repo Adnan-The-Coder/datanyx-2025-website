@@ -11,7 +11,7 @@ const CodeOfConductPage = () => {
       </Head>
 
       <div className="min-h-screen bg-[url('/bg-pattern.png')] bg-cover bg-center flex justify-center items-start py-12 px-4 ">
-        <div className="w-full max-w-4xl 
+        <div className="w-full max-w-4xl z-1100
                         backdrop-blur-xl bg-white/10 border border-white/30 
                         rounded-3xl p-8 shadow-2xl space-y-6">
           
