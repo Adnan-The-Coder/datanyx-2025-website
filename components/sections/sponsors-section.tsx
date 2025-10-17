@@ -6,7 +6,7 @@ const SPONSORS = [
   },
   {
     name: "Kaggle",
-    src: "/kaggle.png",
+    src: "/assets/kaggle.png",
     tier: "Platinum Sponsor"
   }
 ]

@@ -161,7 +161,7 @@ export function AboutSection() {
             </p>
           </div>
 
-          <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
             {stats.map((s, i) => {
               const { prefix, num, suffix } = parseNumeric(s.value)
               const isNumeric = /\d/.test(s.value)
@@ -175,9 +175,7 @@ export function AboutSection() {
               return (
                 <div
                   key={s.label}
-                  className={`rounded-xl border border-white/10 bg-black/10 p-3 sm:p-4 text-center backdrop-blur-sm hover:border-blue-500/30 transition-colors ${
-                    (isVenue || isMode) ? 'col-span-2 sm:col-span-1' : ''
-                  }`}
+                  className="rounded-xl border border-white/10 bg-black/10 p-3 sm:p-4 text-center backdrop-blur-sm hover:border-blue-500/30 transition-colors"
                   style={{
                     boxShadow: '0 0 15px rgba(59, 130, 246, 0.10)', // blue-500
                     animation: `pulse 3s infinite ${i * 0.5}s`,
