@@ -258,8 +258,11 @@ export function HeroSection() {
               {/* Devfolio Apply Button (renders via Devfolio SDK) */}
               <div className="mt-4">
                 <button
-                  className="apply-button inline-flex items-center gap-3 rounded-md px-6 py-2 bg-[#263238] text-white font-semibold hover:bg-[#1f2a2f] shadow-md mx-auto"
+                  id="devfolio-apply"
+                  className="apply-button apply-with-devfolio devfolio-apply inline-flex items-center gap-3 rounded-md px-6 py-2 bg-[#263238] text-white font-semibold hover:bg-[#1f2a2f] shadow-md mx-auto"
                   data-hackathon-id="datanyx-2025"
+                  data-hackathon="datanyx-2025"
+                  data-hackathon-slug="datanyx-2025"
                   data-team-size="4"
                   aria-label="Apply with Devfolio"
                 >
@@ -269,6 +272,20 @@ export function HeroSection() {
                   </span>
                   <span>Apply with Devfolio</span>
                 </button>
+                {/* Static fallback for crawlers / verifiers that do not execute JS */}
+                <noscript>
+                  <div style={{ display: 'flex', justifyContent: 'center', marginTop: '8px' }}>
+                    <a
+                      className="apply-with-devfolio"
+                      href="https://apply.devfolio.co/"
+                      data-hackathon-id="datanyx-2025"
+                      data-hackathon="datanyx-2025"
+                      style={{ display: 'inline-block', padding: '8px 24px', background: '#263238', color: '#fff', borderRadius: 6, textDecoration: 'none', fontWeight: 600 }}
+                    >
+                      Apply with Devfolio
+                    </a>
+                  </div>
+                </noscript>
               </div>
             </div>
           )}
