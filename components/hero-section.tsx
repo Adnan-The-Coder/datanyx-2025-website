@@ -39,6 +39,17 @@ function TimeBlock({ label, value }: { label: string; value: number }) {
 }
 
 export function HeroSection() {
+  // Load Devfolio SDK for the Apply button
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://apply.devfolio.co/v2/sdk.js';
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    }
+  }, []);
   // 🔹 Countdown to registration deadline: November 14, 2025, 11:59 PM IST (18:29:59 UTC)
   const { d, h, m, s, done, isClient } = useCountdown('2025-11-14T18:29:59Z')
 
@@ -231,7 +242,7 @@ export function HeroSection() {
 
           {/* Register Button */}
           {!done && (
-            <div className="pointer-events-auto">
+            <div className="pointer-events-auto flex flex-col items-center">
               <StarBorder
                 as="a"
                 href="https://unstop.com/hackathons/datanyx-muffakham-jah-college-of-engineering-technology-1188761"
@@ -239,11 +250,26 @@ export function HeroSection() {
                 rel="noopener noreferrer"
                 color="white"
                 speed="6s"
-                className="cursor-pointer"
+                className="cursor-pointer mx-auto"
                 style={{ textDecoration: 'none' }}
               >
                 Register Now
               </StarBorder>
+              {/* Devfolio Apply Button (renders via Devfolio SDK) */}
+              <div className="mt-4">
+                <button
+                  className="apply-button inline-flex items-center gap-3 rounded-lg px-6 py-2 bg-blue-600 text-white font-semibold hover:bg-blue-700 shadow-md mx-auto"
+                  data-hackathon-id="datanyx-2025"
+                  data-team-size="4"
+                  aria-label="Apply with Devfolio"
+                >
+                  {/* Left icon: white rounded square with blue 'D' */}
+                  <span className="flex items-center justify-center w-6 h-6 rounded-md bg-white">
+                    <span className="text-blue-600 font-bold text-sm">D</span>
+                  </span>
+                  <span>Apply with Devfolio</span>
+                </button>
+              </div>
             </div>
           )}
         </div>
