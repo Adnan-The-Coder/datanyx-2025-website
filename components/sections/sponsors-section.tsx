@@ -5,14 +5,9 @@ const SPONSORS = [
     tier: "Platinum Sponsor"
   },
   {
-    name: "Devfolio",
-    src: "/devfolio_gold.jpeg",
-    tier: "Gold Sponsor"
-  },
-  {
-    name: "ETHIndia",
-    src: "/silver_ethindia.jpeg",
-    tier: "Silver Sponsor"
+    name: "Kaggle",
+    src: "/assets/kaggle.png",
+    tier: "Platinum Sponsor"
   }
 ]
 
