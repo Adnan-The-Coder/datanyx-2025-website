@@ -5,11 +5,17 @@ const SPONSORS = [
     tier: "Platinum Sponsor"
   },
   {
-    name: "Kaggle",
-    src: "/kaggle.png",
-    tier: "Platinum Sponsor"
+    name: "Devfolio",
+    src: "/devfolio_gold.jpeg",
+    tier: "Gold Sponsor"
+  },
+  {
+    name: "ETHIndia",
+    src: "/silver_ethindia.jpeg",
+    tier: "Silver Sponsor"
   }
 ]
+
 
 export function SponsorsSection() {
   return (
