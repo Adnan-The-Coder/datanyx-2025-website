@@ -15,7 +15,6 @@
 /* Prevent horizontal scroll on all pages */
 html, body {
   max-width: 100%;
-  cursor: pointer;
   overflow-x: hidden;
 }
 
@@ -34,6 +33,10 @@ html, body {
 
 .font-space-age {
   font-family: 'Space Age', sans-serif;
+}
+
+.font-orbitron{
+  font-family: 'Orbitron', monospace;
 }
 
 @custom-variant dark (&:is(.dark *));

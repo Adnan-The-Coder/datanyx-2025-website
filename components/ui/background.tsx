@@ -7,13 +7,13 @@ const Background = () => {
     <div className="fixed top-0 left-0 w-full h-full z-10">
       <Particles
         particleColors={["#ffffff", "#ffffff"]}
-        particleCount={700}
+        particleCount={500}
         particleSpread={10}
         speed={0.2}
-        particleBaseSize={100}
+        particleBaseSize={150}
         moveParticlesOnHover={false}
         alphaParticles={false}
-        disableRotation={false}
+        disableRotation={true}
       />
     </div>
   );

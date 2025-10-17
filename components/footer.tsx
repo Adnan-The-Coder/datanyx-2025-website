@@ -147,26 +147,13 @@ export function Footer() {
             className="text-gray-400 text-sm"
             style={{ fontFamily: "Orbitron, monospace" }}
           >
-            © {currentYear} All rights reserved.
+            © {currentYear} Datanyx.All rights reserved.
           </div>
 
           <div className="flex flex-wrap justify-center gap-6 text-sm">
+            
             <Link
-              href="/privacy"
-              className="text-gray-400 hover:text-white transition-colors"
-              style={{ fontFamily: "Orbitron, monospace" }}
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="/terms"
-              className="text-gray-400 hover:text-white transition-colors"
-              style={{ fontFamily: "Orbitron, monospace" }}
-            >
-              Terms and Conditions
-            </Link>
-            <Link
-              href="/code-of-conduct"
+              href="/coc"
               className="text-gray-400 hover:text-white transition-colors"
               style={{ fontFamily: "Orbitron, monospace" }}
             >
