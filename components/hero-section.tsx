@@ -240,57 +240,56 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Register Button */}
-          {!done && (
-            <div className="pointer-events-auto flex flex-col items-center">
-              <StarBorder
-                as="a"
-                href="https://unstop.com/hackathons/datanyx-muffakham-jah-college-of-engineering-technology-1188761"
-                target="_blank"
-                rel="noopener noreferrer"
-                color="white"
-                speed="6s"
-                className="cursor-pointer mx-auto"
-                style={{ textDecoration: 'none' }}
-              >
-                Register Now
-              </StarBorder>
-              {/* Devfolio Apply Button */}
-              <div className="mt-4 flex justify-center" style={{ position: 'relative', zIndex: 1000 }}>
-                <a
-                  href="https://devfolio.co/datanyx-2025"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="apply-button inline-flex items-center gap-3 rounded-md px-6 py-3 text-white font-semibold shadow-lg transition-all duration-200 hover:shadow-xl"
-                  data-hackathon-slug="datanyx-2025"
-                  data-button-theme="dark"
-                  style={{ 
-                    textDecoration: 'none', 
-                    minWidth: '250px', 
-                    justifyContent: 'center',
-                    backgroundColor: '#263238',
-                    position: 'relative',
-                    display: 'inline-flex'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#1f2a2f'}
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#263238'}
-                >
-                  <span style={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center', 
-                    width: '24px', 
-                    height: '24px', 
-                    borderRadius: '4px', 
-                    backgroundColor: 'white' 
-                  }}>
-                    <span style={{ color: '#263238', fontWeight: 'bold', fontSize: '14px' }}>D</span>
-                  </span>
-                  <span>Apply with Devfolio</span>
-                </a>
-              </div>
-            </div>
-          )}
+          {/* Devfolio Apply Button - positioned below countdown */}
+          <div className="mt-6 flex justify-center pointer-events-auto" style={{ position: 'relative', zIndex: 1000 }}>
+            <a
+              href="https://devfolio.co/datanyx-2025"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="apply-button"
+              data-hackathon-slug="datanyx-2025"
+              data-button-theme="light"
+              style={{ 
+                textDecoration: 'none', 
+                minWidth: '280px', 
+                backgroundColor: '#f5f5f5',
+                color: '#2c3e50',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '12px',
+                padding: '12px 32px',
+                fontSize: '16px',
+                borderRadius: '8px',
+                fontWeight: '600',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#e8e8e8';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 6px 16px rgba(0,0,0,0.2)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#f5f5f5';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+              }}
+            >
+              <span style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                width: '28px', 
+                height: '28px', 
+                borderRadius: '6px', 
+                backgroundColor: '#2c3e50' 
+              }}>
+                <span style={{ color: 'white', fontWeight: 'bold', fontSize: '16px' }}>D</span>
+              </span>
+              <span>Apply with Devfolio</span>
+            </a>
+          </div>
         </div>
       </div>
 
