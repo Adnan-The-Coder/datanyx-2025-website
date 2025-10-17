@@ -258,25 +258,24 @@ export function HeroSection() {
               {/* Devfolio Apply Button (renders via Devfolio SDK) */}
               <div className="mt-4">
                 <a
+                  id="devfolio-apply"
+                  className="apply-button apply-with-devfolio devfolio-apply visible-apply inline-flex items-center gap-3 rounded-md bg-[#263238] text-white font-semibold hover:bg-[#1f2a2f] shadow-md mx-auto z-50"
                   href="https://apply.devfolio.co/datanyx-2025"
                   target="_blank"
                   rel="noopener noreferrer"
-                >
-                <button
-                  id="devfolio-apply"
-                  className="apply-button apply-with-devfolio devfolio-apply inline-flex items-center gap-3 rounded-md px-6 py-2 bg-[#263238] text-white font-semibold hover:bg-[#1f2a2f] shadow-md mx-auto"
                   data-hackathon-id="datanyx-2025"
                   data-hackathon="datanyx-2025"
                   data-hackathon-slug="datanyx-2025"
                   data-team-size="4"
+                  role="button"
                   aria-label="Apply with Devfolio"
+                  style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', minWidth: '180px', padding: '8px 22px' }}
                 >
                   {/* Left icon: white rounded square with dark 'D' */}
                   <span className="flex items-center justify-center w-6 h-6 rounded-sm bg-white">
                     <span className="text-[#263238] font-bold text-sm">D</span>
                   </span>
                   <span>Apply with Devfolio</span>
-                </button>
                 </a>
                 {/* Static fallback for crawlers / verifiers that do not execute JS */}
                 <noscript>
