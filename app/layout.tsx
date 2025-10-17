@@ -46,7 +46,7 @@ export default function RootLayout({
       </head>
       <body className="relative">
         <Background />
-        <SmoothCursor
+         <SmoothCursor
           size={20}
           color="black"
           showTrail={false}
@@ -54,10 +54,10 @@ export default function RootLayout({
           magneticDistance={60}
           magneticElements="[data-magnetic]"
           springConfig={{
-            damping: 50,
-            stiffness: 450,
-            mass: 0.8,
-            restDelta: 0.001
+          damping: 50,
+          stiffness: 450,
+          mass: 0.8,
+          restDelta: 0.001
           }}
         />
         {children}
