@@ -37,14 +37,14 @@ export function PrizesSection() {
               <Icon className="absolute h-6 w-6 -bottom-3 -right-3 text-yellow-400" />
 
               <div className="w-full h-full flex flex-col items-center justify-center relative">
-                <EvervaultCard text="🥇" className="w-full flex-1" />
+                <EvervaultCard text="🏆" className="w-full flex-1" />
 
                 {/* Text overlay inside the card */}
                 <div className="absolute bottom-6 left-0 right-0 text-center z-20">
-                  <h3 className="text-white text-xl font-bold mb-2" style={{ fontFamily: "Orbitron Light, monospace" }}>
+                  <h3 className="text-white text-xl font-bold mb-2" style={{ fontFamily: 'Orbitron, monospace' }}>
                     Grand Prize
                   </h3>
-                  <p className="text-lg font-bold text-yellow-400" style={{ fontFamily: "Orbitron Light, monospace" }}>
+                  <p className="text-lg font-bold text-yellow-400" style={{ fontFamily: 'Orbitron, monospace' }}>
                     ₹12,000
                   </p>
                 </div>
@@ -63,10 +63,10 @@ export function PrizesSection() {
 
                 {/* Text overlay inside the card */}
                 <div className="absolute bottom-6 left-0 right-0 text-center z-20">
-                  <h3 className="text-white text-xl font-bold mb-2" style={{ fontFamily: "Orbitron Light, monospace" }}>
+                  <h3 className="text-white text-xl font-bold mb-2" style={{ fontFamily: 'Orbitron, monospace' }}>
                     Runner Up
                   </h3>
-                  <p className="text-lg font-bold text-gray-300" style={{ fontFamily: "Orbitron Light, monospace" }}>
+                  <p className="text-lg font-bold text-gray-300" style={{ fontFamily: 'Orbitron, monospace' }}>
                     ₹8,000
                   </p>
                 </div>

@@ -4,8 +4,8 @@ import { AnimatedTooltip, type AnimatedTooltipItem } from "@/components/ui/anima
 
 const DEFAULT_PEOPLE: AnimatedTooltipItem[] = [
   { id: 1, name: "Mohammed Osman", designation: "FULL STACK DEVELOPER", image: "/osman.JPG" },
-  { id: 2, name: "Abdul Moid", designation: "Developer", image: "/assets/domain-pics/IMG_2815.JPG" },
-  { id: 3, name: "Saad Riyan", designation: "Developer", image: "/assets/domain-pics/IMG_2815.JPG" },
+  { id: 2, name: "Abdul Moid", designation: "Developer", image: "/moid_webmaster.jpg" },
+  { id: 3, name: "Saad Riyan", designation: "Developer", image: "/saad_riyan_vicechair.jpg" },
 ];
 
 const people = DEFAULT_PEOPLE;
@@ -38,8 +38,9 @@ export function Footer() {
               className="text-gray-300 mb-4 leading-relaxed max-w-md mx-auto md:mx-0"
               style={{ fontFamily: "Orbitron, monospace" }}
             >
-              Telangana's flagship 24-hour datathon — explore the power of data science, 
-              machine learning, and innovation that shapes the future.
+              Telangana’s flagship 24-hour datathon returns — bigger, bolder, and more transformative.
+Dive into the world of data science, AI, and cloud innovation where ideas become impact.
+Collaborate and create breakthroughs that shape the next era of technology — this is DATANYX’25.
             </p>
           </div>
 
@@ -147,26 +148,13 @@ export function Footer() {
             className="text-gray-400 text-sm"
             style={{ fontFamily: "Orbitron, monospace" }}
           >
-            © {currentYear} All rights reserved.
+            © {currentYear} Datanyx.All rights reserved.
           </div>
 
           <div className="flex flex-wrap justify-center gap-6 text-sm">
+            
             <Link
-              href="/privacy"
-              className="text-gray-400 hover:text-white transition-colors"
-              style={{ fontFamily: "Orbitron, monospace" }}
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="/terms"
-              className="text-gray-400 hover:text-white transition-colors"
-              style={{ fontFamily: "Orbitron, monospace" }}
-            >
-              Terms and Conditions
-            </Link>
-            <Link
-              href="/code-of-conduct"
+              href="/coc"
               className="text-gray-400 hover:text-white transition-colors"
               style={{ fontFamily: "Orbitron, monospace" }}
             >
