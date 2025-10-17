@@ -4,8 +4,8 @@ import { AnimatedTooltip, type AnimatedTooltipItem } from "@/components/ui/anima
 
 const DEFAULT_PEOPLE: AnimatedTooltipItem[] = [
   { id: 1, name: "Mohammed Osman", designation: "FULL STACK DEVELOPER", image: "/osman.JPG" },
-  { id: 2, name: "Abdul Moid", designation: "Developer", image: "/assets/domain-pics/IMG_2815.JPG" },
-  { id: 3, name: "Saad Riyan", designation: "Developer", image: "/assets/domain-pics/IMG_2815.JPG" },
+  { id: 2, name: "Abdul Moid", designation: "Developer", image: "/moid_webmaster.jpg" },
+  { id: 3, name: "Saad Riyan", designation: "Developer", image: "/saad_riyan_vicechair.jpg" },
 ];
 
 const people = DEFAULT_PEOPLE;
