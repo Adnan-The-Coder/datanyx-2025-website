@@ -11,6 +11,7 @@ const SPONSORS = [
   }
 ]
 
+
 export function SponsorsSection() {
   return (
     <section id="sponsors" aria-labelledby="sponsors-title" className="scroll-mt-24 py-8 md:py-12 relative">
