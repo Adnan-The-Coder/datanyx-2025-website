@@ -41,10 +41,10 @@ export function PrizesSection() {
 
                 {/* Text overlay inside the card */}
                 <div className="absolute bottom-6 left-0 right-0 text-center z-20">
-                  <h3 className="text-white text-xl font-bold mb-2" style={{ fontFamily: "Orbitron Light, monospace" }}>
+                  <h3 className="text-white text-xl font-bold mb-2" style={{ fontFamily: 'Orbitron, monospace' }}>
                     Grand Prize
                   </h3>
-                  <p className="text-lg font-bold text-yellow-400" style={{ fontFamily: "Orbitron Light, monospace" }}>
+                  <p className="text-lg font-bold text-yellow-400" style={{ fontFamily: 'Orbitron, monospace' }}>
                     ₹12,000
                   </p>
                 </div>
@@ -63,10 +63,10 @@ export function PrizesSection() {
 
                 {/* Text overlay inside the card */}
                 <div className="absolute bottom-6 left-0 right-0 text-center z-20">
-                  <h3 className="text-white text-xl font-bold mb-2" style={{ fontFamily: "Orbitron Light, monospace" }}>
+                  <h3 className="text-white text-xl font-bold mb-2" style={{ fontFamily: 'Orbitron, monospace' }}>
                     Runner Up
                   </h3>
-                  <p className="text-lg font-bold text-gray-300" style={{ fontFamily: "Orbitron Light, monospace" }}>
+                  <p className="text-lg font-bold text-gray-300" style={{ fontFamily: 'Orbitron, monospace' }}>
                     ₹8,000
                   </p>
                 </div>

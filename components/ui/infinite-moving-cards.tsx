@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
+
 
 export const InfiniteMovingCards = ({
   rows,
@@ -110,10 +112,13 @@ const InfiniteMovingRow = ({
             key={idx}
             className="relative w-[200px] h-[130px] md:w-[280px] md:h-[180px] shrink-0 overflow-hidden rounded-xl border border-zinc-700/50 dark:border-zinc-800/50"
           >
-            <img
+            <Image
               src={item.src}
               alt={item.alt || `Image ${idx + 1}`}
-              className="w-full h-full object-cover"
+              fill
+              sizes="(max-width: 768px) 200px, 280px"
+              className="object-cover"
+              quality={15}
             />
           </li>
         ))}

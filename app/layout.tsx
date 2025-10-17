@@ -47,7 +47,7 @@ export default function RootLayout({
       <body className="relative">
         <Background />
          <SmoothCursor
-          size={20}
+          size={17}
           color="black"
           showTrail={false}
           trailLength={8}
