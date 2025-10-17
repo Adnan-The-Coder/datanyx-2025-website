@@ -115,7 +115,8 @@ export function HeroSection() {
     <section
       id="home"
       aria-labelledby="datanyx-hero-title"
-      className="relative w-full py-24 md:py-36 overflow-hidden min-h-screen"
+      className="relative w-full py-24 md:py-36 min-h-screen"
+      style={{ overflow: 'visible' }}
     >
       <style jsx>{`
         .logo-image {
@@ -157,8 +158,14 @@ export function HeroSection() {
 
         @media (max-width: 480px) {
           .hero-content {
-            top: 50% !important;
+            top: 35% !important;
           }
+        }
+        
+        .apply-button {
+          pointer-events: auto !important;
+          position: relative !important;
+          z-index: 1001 !important;
         }
       `}</style>
 
@@ -188,26 +195,28 @@ export function HeroSection() {
         className="fixed hero-content"
         style={{
           zIndex: 600,
-          top: '52%',
+          top: '38%',
           left: '50%',
           transform: 'translate3d(-50%, -50%, 0)',
           opacity: 1,
           willChange: 'transform, opacity',
           backfaceVisibility: 'hidden',
+          pointerEvents: 'none',
         }}
       >
-        <div className="flex flex-col items-center gap-6 md:gap-8">
+        <div className="flex flex-col items-center gap-2 md:gap-3" style={{ pointerEvents: 'none' }}>
           {/* Logo */}
           <img
             src="/assets/datanyx25logo.png"
             alt="DATANYX Logo"
             className="logo-image"
+            style={{ pointerEvents: 'none' }}
           />
 
           {/* Countdown */}
-          <div className="flex flex-col items-center gap-2">
+          <div className="flex flex-col items-center gap-1" style={{ pointerEvents: 'none' }}>
             {!done && (
-              <p className="text-sm sm:text-base md:text-lg font-medium text-muted-foreground uppercase tracking-wide"
+              <p className="text-[10px] sm:text-xs md:text-sm font-medium text-muted-foreground uppercase tracking-wide"
               style={{ fontFamily: 'Orbitron, monospace' }}>
                 Time left to register
               </p>
@@ -240,56 +249,63 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Devfolio Apply Button - positioned below countdown */}
-          <div className="mt-6 flex justify-center pointer-events-auto" style={{ position: 'relative', zIndex: 1000 }}>
-            <a
-              href="https://devfolio.co/datanyx-2025"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="apply-button"
-              data-hackathon-slug="datanyx-2025"
-              data-button-theme="light"
+          {/* Apply with Devfolio Button */}
+          {!done && (
+            <div 
+              className="w-full flex justify-center mt-2 sm:mt-3" 
               style={{ 
-                textDecoration: 'none', 
-                minWidth: '280px', 
-                backgroundColor: '#f5f5f5',
-                color: '#2c3e50',
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '12px',
-                padding: '12px 32px',
-                fontSize: '16px',
-                borderRadius: '8px',
-                fontWeight: '600',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-                transition: 'all 0.2s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#e8e8e8';
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 6px 16px rgba(0,0,0,0.2)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = '#f5f5f5';
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+                pointerEvents: 'auto',
+                position: 'relative',
+                zIndex: 9999
               }}
             >
-              <span style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center', 
-                width: '28px', 
-                height: '28px', 
-                borderRadius: '6px', 
-                backgroundColor: '#2c3e50' 
-              }}>
-                <span style={{ color: 'white', fontWeight: 'bold', fontSize: '16px' }}>D</span>
-              </span>
-              <span>Apply with Devfolio</span>
-            </a>
-          </div>
+              <a
+                href="https://devfolio.co/datanyx-2025"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ 
+                  height: '50px', 
+                  minWidth: '300px',
+                  paddingLeft: '28px',
+                  paddingRight: '28px',
+                  pointerEvents: 'auto',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: '#4766F5',
+                  color: 'white',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  fontSize: '19px',
+                  fontWeight: '500',
+                  gap: '14px',
+                  transition: 'all 0.15s ease',
+                  boxShadow: '0 3px 8px rgba(71, 102, 245, 0.3)',
+                  textDecoration: 'none',
+                  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#3850D9';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(71, 102, 245, 0.4)';
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#4766F5';
+                  e.currentTarget.style.boxShadow = '0 3px 8px rgba(71, 102, 245, 0.3)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                <img 
+                  src="icons/devfolio_main.png"
+                  alt="Devfolio"
+                  width="24"
+                  height="24"
+                  style={{ flexShrink: 0, objectFit: 'contain' }}
+                />
+                <span style={{ whiteSpace: 'nowrap', letterSpacing: '0.01em' }}>Apply with Devfolio</span>
+              </a>
+            </div>
+          )}
         </div>
       </div>
 
