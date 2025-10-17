@@ -12,6 +12,7 @@ import FaqsSection from '../components/sections/faqs-section'
 import Organizers from '@/components/sections/organizers'
 import Footer from '../components/footer'
 import FullscreenPreloader from '@/components/ui/PreLoader' 
+
 export default function Page() {
   const [scrollY, setScrollY] = useState(0)
   const [ready, setReady] = useState(false)
@@ -54,7 +55,7 @@ export default function Page() {
     <>
       {!ready && (
         <FullscreenPreloader
-          logoSrc="/assets/DATANYX'25 LOGO.png"
+          src="/assets/datanyx25logo.png"
           durationMs={2800}
           onDone={handlePreloaderDone}
         />
@@ -87,6 +88,7 @@ export default function Page() {
           <SponsorsSection />
           <FaqsSection />
           <Organizers />
+
           <Footer />
         </div>
       </main>

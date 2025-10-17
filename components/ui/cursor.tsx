@@ -2,7 +2,6 @@
 
 import { motion, useSpring } from "framer-motion";
 import { FC, JSX, useEffect, useRef, useState } from "react";
-// Utility function 'cn' (classnames) - implemented directly to resolve import error
 function cn(...inputs: (string | undefined | null | boolean)[]) {
   return inputs.filter(Boolean).join(" ");
 }
@@ -133,6 +132,7 @@ export function SmoothCursor({
   const [isVisible, setIsVisible] = useState(true);
   const [isClicking, setIsClicking] = useState(false);
   const [trail, setTrail] = useState<Position[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
 
   const lastMousePos = useRef<Position>({ x: 0, y: 0 });
   const velocity = useRef<Position>({ x: 0, y: 0 });
@@ -156,8 +156,24 @@ export function SmoothCursor({
   const defaultCursor = <DefaultCursorSVG size={size} color={color} />;
   const cursorElement = cursor || defaultCursor;
 
+  // Check if device is mobile on mount
   useEffect(() => {
-    if (disabled) return;
+    const checkMobile = () => {
+      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const isSmallScreen = window.innerWidth < 768;
+      setIsMobile(isTouchDevice || isSmallScreen);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (disabled || isMobile) return;
 
     const updateVelocity = (currentPos: Position) => {
       const currentTime = Date.now();
@@ -311,6 +327,7 @@ export function SmoothCursor({
     rotation,
     scale,
     disabled,
+    isMobile,
     showTrail,
     trailLength,
     rotateOnMove,
@@ -323,7 +340,7 @@ export function SmoothCursor({
     onCursorLeave
   ]);
 
-  if (disabled || !isVisible) return null;
+  if (disabled || !isVisible || isMobile) return null;
 
   return (
     <>
