@@ -13,8 +13,6 @@ import Organizers from '@/components/sections/organizers'
 import Footer from '../components/footer'
 import FullscreenPreloader from '@/components/ui/PreLoader' 
 
-
-
 export default function Page() {
   const [scrollY, setScrollY] = useState(0)
   const [ready, setReady] = useState(false)
