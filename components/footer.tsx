@@ -155,6 +155,7 @@ Collaborate and create breakthroughs that shape the next era of technology — t
             
             <Link
               href="/coc"
+              target="_blank "
               className="text-gray-400 hover:text-white transition-colors"
               style={{ fontFamily: "Orbitron, monospace" }}
             >
