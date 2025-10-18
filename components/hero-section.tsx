@@ -1,8 +1,17 @@
 'use client'
 
+import Link from 'next/link'
+import Image from 'next/image'
 import { useEffect, useMemo, useState, useRef } from 'react'
 import StarBorder from '@/components/ui/StarBorder_button'
 // import WireframeSphere from './three/wireframe-sphere'
+  import { Poppins } from "next/font/google";
+
+
+  const poppins = Poppins({
+    subsets: ["latin"],
+    weight: ["600"], // choose your weight
+  });
 
 function useCountdown(targetISO: string) {
   const target = useMemo(() => new Date(targetISO).getTime(), [targetISO])
@@ -50,7 +59,7 @@ export function HeroSection() {
       document.body.removeChild(script);
     }
   }, []);
-  // 🔹 Countdown to registration deadline: November 14, 2025, 11:59 PM IST (18:29:59 UTC)
+  //  Countdown to registration deadline: November 14, 2025, 11:59 PM IST (18:29:59 UTC)
   const { d, h, m, s, done, isClient } = useCountdown('2025-11-14T18:29:59Z')
 
   const sphereRef = useRef<HTMLDivElement>(null)
@@ -120,12 +129,19 @@ export function HeroSection() {
     >
       <style jsx>{`
         .logo-image {
-          width: 82vw;
-          max-width: 560px;
-          min-width: 260px;
+          width: 90vw;
+          max-width: 400px;
+          min-width: 280px;
           height: auto;
           object-fit: contain;
           filter: drop-shadow(0 0 24px rgba(255, 255, 255, 0.3));
+        }
+
+        @media (min-width: 480px) {
+          .logo-image {
+            width: 85vw;
+            max-width: 500px;
+          }
         }
 
         @media (min-width: 640px) {
@@ -156,16 +172,22 @@ export function HeroSection() {
           }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 639px) {
           .hero-content {
-            top: 35% !important;
+            top: 45% !important;
           }
         }
-        
-        .apply-button {
-          pointer-events: auto !important;
-          position: relative !important;
-          z-index: 1001 !important;
+
+        @media (max-width: 480px) {
+          .hero-content {
+            top: 48% !important;
+          }
+        }
+
+        @media (max-height: 700px) and (max-width: 639px) {
+          .hero-content {
+            top: 50% !important;
+          }
         }
       `}</style>
 
@@ -195,7 +217,7 @@ export function HeroSection() {
         className="fixed hero-content"
         style={{
           zIndex: 600,
-          top: '38%',
+          top: '52%',
           left: '50%',
           transform: 'translate3d(-50%, -50%, 0)',
           opacity: 1,
@@ -251,61 +273,48 @@ export function HeroSection() {
 
           {/* Apply with Devfolio Button */}
           {!done && (
-            <div 
-              className="w-full flex justify-center mt-2 sm:mt-3" 
-              style={{ 
-                pointerEvents: 'auto',
-                position: 'relative',
-                zIndex: 9999
-              }}
-            >
-              <a
-                href="https://devfolio.co/datanyx-2025"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ 
-                  height: '50px', 
-                  minWidth: '300px',
-                  paddingLeft: '28px',
-                  paddingRight: '28px',
-                  pointerEvents: 'auto',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: '#4766F5',
-                  color: 'white',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                  fontSize: '19px',
-                  fontWeight: '500',
-                  gap: '14px',
-                  transition: 'all 0.15s ease',
-                  boxShadow: '0 3px 8px rgba(71, 102, 245, 0.3)',
-                  textDecoration: 'none',
-                  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#3850D9';
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(71, 102, 245, 0.4)';
-                  e.currentTarget.style.transform = 'translateY(-1px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = '#4766F5';
-                  e.currentTarget.style.boxShadow = '0 3px 8px rgba(71, 102, 245, 0.3)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              >
-                <img 
-                  src="icons/devfolio_main.png"
-                  alt="Devfolio"
-                  width="24"
-                  height="24"
-                  style={{ flexShrink: 0, objectFit: 'contain' }}
-                />
-                <span style={{ whiteSpace: 'nowrap', letterSpacing: '0.01em' }}>Apply with Devfolio</span>
-              </a>
-            </div>
-          )}
+        <div
+          className="w-full flex justify-center mt-2 sm:mt-3"
+          style={{
+            pointerEvents: "auto",
+            position: "relative",
+            zIndex: 9999,
+          }}
+        >
+          <Link
+            href="https://devfolio.co/datanyx-2025"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`
+              flex items-center justify-center
+              min-w-[200px] max-w-full
+              px-5 sm:px-6 py-2 sm:py-2.5
+              rounded-sm
+              bg-[#23282d]
+              text-[#f8fafc]
+              text-[16px] font-medium
+              shadow-sm
+              hover:bg-[#171a1f]
+              transition-[background]
+              duration-150
+              gap-3
+              cursor-pointer
+              outline-none
+              ${poppins.className}
+            `}
+          >
+            <Image
+              src="/icons/devfolio_main.png"
+              alt="Devfolio"
+              width={24}
+              height={24}
+              className="rounded-sm object-contain"
+              priority
+            />
+            <span style={{ whiteSpace: "nowrap" }}>Apply with Devfolio</span>
+          </Link>
+        </div>
+      )}
         </div>
       </div>
 
