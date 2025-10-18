@@ -336,7 +336,7 @@ export default function ScheduleSection() {
                   background: 'none'
                 }}
               >
-                Datanyx 2K25
+                Datanyx’25
               </h2>
 
             </div>
