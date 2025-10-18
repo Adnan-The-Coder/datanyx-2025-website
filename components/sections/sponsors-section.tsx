@@ -7,12 +7,12 @@ const SPONSORS = [
   
   {
     name: "Devfolio",
-    src: "/devfolio_gold.jpeg",
+    src: "/devfolio.png",
     tier: "Gold Sponsor"
   },
   {
     name: "ETHIndia",
-    src: "/silver_ethindia.jpeg",
+    src: "/ethindia.png",
     tier: "Silver Sponsor"
   }
 ]

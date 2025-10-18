@@ -45,7 +45,7 @@ export function PrizesSection() {
                     Grand Prize
                   </h3>
                   <p className="text-lg font-bold text-yellow-400" style={{ fontFamily: 'Orbitron, monospace' }}>
-                    ₹12,000
+                    ₹15,000
                   </p>
                 </div>
               </div>
@@ -67,7 +67,7 @@ export function PrizesSection() {
                     Runner Up
                   </h3>
                   <p className="text-lg font-bold text-gray-300" style={{ fontFamily: 'Orbitron, monospace' }}>
-                    ₹8,000
+                    ₹10,000
                   </p>
                 </div>
               </div>
