@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState, useRef } from 'react'
 import StarBorder from '@/components/ui/StarBorder_button'
 // import WireframeSphere from './three/wireframe-sphere'
   import { Poppins } from "next/font/google";
+import DevfolioButton from "@/components/DevfolioButton";
 
 
   const poppins = Poppins({
@@ -272,7 +273,11 @@ export function HeroSection() {
           </div>
 
           {/* Apply with Devfolio Button */}
-          {!done && (
+          <DevfolioButton slug="datanyx-2025" theme="dark" width="280px" height="50px" />
+          <p className="text-sm text-gray-400 mt-4">
+            Powered by Devfolio
+          </p>
+          {/* {!done && (
         <div
           className="w-full flex justify-center mt-2 sm:mt-3"
           style={{
@@ -314,7 +319,7 @@ export function HeroSection() {
             <span style={{ whiteSpace: "nowrap" }}>Apply with Devfolio</span>
           </Link>
         </div>
-      )}
+      )} */}
         </div>
       </div>
 
