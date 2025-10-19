@@ -345,8 +345,9 @@ const ChatInterface: React.FC = () => {
                 </svg>
               </button>
             </div>
-            <p className="text-gray-500 text-[10px] sm:text-xs text-center mt-2 sm:mt-3 opacity-70">
-              {/* Powered by <Link href="https://chatbot-by.AdnanTheCoder.com" target="_blank" className="underline hover:text-white transition-colors">Adnan The Coder</Link> */}
+            <p className="text-gray-500 text-xs text-center mt-3 opacity-70">
+              {/* https://chatbot-by.AdnanTheCoder.com */}
+              Powered by Datanyx 
             </p>
           </div>
         </div>
